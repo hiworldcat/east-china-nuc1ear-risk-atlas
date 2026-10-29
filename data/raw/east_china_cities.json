@@ -1,0 +1,838 @@
+[
+ {
+  "adcode": 320100,
+  "name": "南京市",
+  "province": "江苏省",
+  "provinceCode": "320000",
+  "center": [
+   118.767413,
+   32.041544
+  ],
+  "level": "city"
+ },
+ {
+  "adcode": 320200,
+  "name": "无锡市",
+  "province": "江苏省",
+  "provinceCode": "320000",
+  "center": [
+   120.301663,
+   31.574729
+  ],
+  "level": "city"
+ },
+ {
+  "adcode": 320300,
+  "name": "徐州市",
+  "province": "江苏省",
+  "provinceCode": "320000",
+  "center": [
+   117.184811,
+   34.261792
+  ],
+  "level": "city"
+ },
+ {
+  "adcode": 320400,
+  "name": "常州市",
+  "province": "江苏省",
+  "provinceCode": "320000",
+  "center": [
+   119.946973,
+   31.772752
+  ],
+  "level": "city"
+ },
+ {
+  "adcode": 320500,
+  "name": "苏州市",
+  "province": "江苏省",
+  "provinceCode": "320000",
+  "center": [
+   120.619585,
+   31.299379
+  ],
+  "level": "city"
+ },
+ {
+  "adcode": 320600,
+  "name": "南通市",
+  "province": "江苏省",
+  "provinceCode": "320000",
+  "center": [
+   120.864608,
+   32.016212
+  ],
+  "level": "city"
+ },
+ {
+  "adcode": 320700,
+  "name": "连云港市",
+  "province": "江苏省",
+  "provinceCode": "320000",
+  "center": [
+   119.178821,
+   34.600018
+  ],
+  "level": "city"
+ },
+ {
+  "adcode": 320800,
+  "name": "淮安市",
+  "province": "江苏省",
+  "provinceCode": "320000",
+  "center": [
+   119.021265,
+   33.597506
+  ],
+  "level": "city"
+ },
+ {
+  "adcode": 320900,
+  "name": "盐城市",
+  "province": "江苏省",
+  "provinceCode": "320000",
+  "center": [
+   120.139998,
+   33.377631
+  ],
+  "level": "city"
+ },
+ {
+  "adcode": 321000,
+  "name": "扬州市",
+  "province": "江苏省",
+  "provinceCode": "320000",
+  "center": [
+   119.421003,
+   32.393159
+  ],
+  "level": "city"
+ },
+ {
+  "adcode": 321100,
+  "name": "镇江市",
+  "province": "江苏省",
+  "provinceCode": "320000",
+  "center": [
+   119.452753,
+   32.204402
+  ],
+  "level": "city"
+ },
+ {
+  "adcode": 321200,
+  "name": "泰州市",
+  "province": "江苏省",
+  "provinceCode": "320000",
+  "center": [
+   119.915176,
+   32.484882
+  ],
+  "level": "city"
+ },
+ {
+  "adcode": 321300,
+  "name": "宿迁市",
+  "province": "江苏省",
+  "provinceCode": "320000",
+  "center": [
+   118.275162,
+   33.963008
+  ],
+  "level": "city"
+ },
+ {
+  "adcode": 330100,
+  "name": "杭州市",
+  "province": "浙江省",
+  "provinceCode": "330000",
+  "center": [
+   120.153576,
+   30.287459
+  ],
+  "level": "city"
+ },
+ {
+  "adcode": 330200,
+  "name": "宁波市",
+  "province": "浙江省",
+  "provinceCode": "330000",
+  "center": [
+   121.549792,
+   29.868388
+  ],
+  "level": "city"
+ },
+ {
+  "adcode": 330300,
+  "name": "温州市",
+  "province": "浙江省",
+  "provinceCode": "330000",
+  "center": [
+   120.672111,
+   28.000575
+  ],
+  "level": "city"
+ },
+ {
+  "adcode": 330400,
+  "name": "嘉兴市",
+  "province": "浙江省",
+  "provinceCode": "330000",
+  "center": [
+   120.750865,
+   30.762653
+  ],
+  "level": "city"
+ },
+ {
+  "adcode": 330500,
+  "name": "湖州市",
+  "province": "浙江省",
+  "provinceCode": "330000",
+  "center": [
+   120.102398,
+   30.867198
+  ],
+  "level": "city"
+ },
+ {
+  "adcode": 330600,
+  "name": "绍兴市",
+  "province": "浙江省",
+  "provinceCode": "330000",
+  "center": [
+   120.582112,
+   29.997117
+  ],
+  "level": "city"
+ },
+ {
+  "adcode": 330700,
+  "name": "金华市",
+  "province": "浙江省",
+  "provinceCode": "330000",
+  "center": [
+   119.649506,
+   29.089524
+  ],
+  "level": "city"
+ },
+ {
+  "adcode": 330800,
+  "name": "衢州市",
+  "province": "浙江省",
+  "provinceCode": "330000",
+  "center": [
+   118.87263,
+   28.941708
+  ],
+  "level": "city"
+ },
+ {
+  "adcode": 330900,
+  "name": "舟山市",
+  "province": "浙江省",
+  "provinceCode": "330000",
+  "center": [
+   122.106863,
+   30.016028
+  ],
+  "level": "city"
+ },
+ {
+  "adcode": 331000,
+  "name": "台州市",
+  "province": "浙江省",
+  "provinceCode": "330000",
+  "center": [
+   121.428599,
+   28.661378
+  ],
+  "level": "city"
+ },
+ {
+  "adcode": 331100,
+  "name": "丽水市",
+  "province": "浙江省",
+  "provinceCode": "330000",
+  "center": [
+   119.921786,
+   28.451993
+  ],
+  "level": "city"
+ },
+ {
+  "adcode": 340100,
+  "name": "合肥市",
+  "province": "安徽省",
+  "provinceCode": "340000",
+  "center": [
+   117.283042,
+   31.86119
+  ],
+  "level": "city"
+ },
+ {
+  "adcode": 340200,
+  "name": "芜湖市",
+  "province": "安徽省",
+  "provinceCode": "340000",
+  "center": [
+   118.376451,
+   31.326319
+  ],
+  "level": "city"
+ },
+ {
+  "adcode": 340300,
+  "name": "蚌埠市",
+  "province": "安徽省",
+  "provinceCode": "340000",
+  "center": [
+   117.363228,
+   32.939667
+  ],
+  "level": "city"
+ },
+ {
+  "adcode": 340400,
+  "name": "淮南市",
+  "province": "安徽省",
+  "provinceCode": "340000",
+  "center": [
+   117.018329,
+   32.647574
+  ],
+  "level": "city"
+ },
+ {
+  "adcode": 340500,
+  "name": "马鞍山市",
+  "province": "安徽省",
+  "provinceCode": "340000",
+  "center": [
+   118.507906,
+   31.689362
+  ],
+  "level": "city"
+ },
+ {
+  "adcode": 340600,
+  "name": "淮北市",
+  "province": "安徽省",
+  "provinceCode": "340000",
+  "center": [
+   116.794664,
+   33.971707
+  ],
+  "level": "city"
+ },
+ {
+  "adcode": 340700,
+  "name": "铜陵市",
+  "province": "安徽省",
+  "provinceCode": "340000",
+  "center": [
+   117.816576,
+   30.929935
+  ],
+  "level": "city"
+ },
+ {
+  "adcode": 340800,
+  "name": "安庆市",
+  "province": "安徽省",
+  "provinceCode": "340000",
+  "center": [
+   117.043551,
+   30.50883
+  ],
+  "level": "city"
+ },
+ {
+  "adcode": 341000,
+  "name": "黄山市",
+  "province": "安徽省",
+  "provinceCode": "340000",
+  "center": [
+   118.317325,
+   29.709239
+  ],
+  "level": "city"
+ },
+ {
+  "adcode": 341100,
+  "name": "滁州市",
+  "province": "安徽省",
+  "provinceCode": "340000",
+  "center": [
+   118.316264,
+   32.303627
+  ],
+  "level": "city"
+ },
+ {
+  "adcode": 341200,
+  "name": "阜阳市",
+  "province": "安徽省",
+  "provinceCode": "340000",
+  "center": [
+   115.819729,
+   32.896969
+  ],
+  "level": "city"
+ },
+ {
+  "adcode": 341300,
+  "name": "宿州市",
+  "province": "安徽省",
+  "provinceCode": "340000",
+  "center": [
+   116.984084,
+   33.633891
+  ],
+  "level": "city"
+ },
+ {
+  "adcode": 341500,
+  "name": "六安市",
+  "province": "安徽省",
+  "provinceCode": "340000",
+  "center": [
+   116.507676,
+   31.752889
+  ],
+  "level": "city"
+ },
+ {
+  "adcode": 341600,
+  "name": "亳州市",
+  "province": "安徽省",
+  "provinceCode": "340000",
+  "center": [
+   115.782939,
+   33.869338
+  ],
+  "level": "city"
+ },
+ {
+  "adcode": 341700,
+  "name": "池州市",
+  "province": "安徽省",
+  "provinceCode": "340000",
+  "center": [
+   117.489157,
+   30.656037
+  ],
+  "level": "city"
+ },
+ {
+  "adcode": 341800,
+  "name": "宣城市",
+  "province": "安徽省",
+  "provinceCode": "340000",
+  "center": [
+   118.757995,
+   30.945667
+  ],
+  "level": "city"
+ },
+ {
+  "adcode": 350100,
+  "name": "福州市",
+  "province": "福建省",
+  "provinceCode": "350000",
+  "center": [
+   119.306239,
+   26.075302
+  ],
+  "level": "city"
+ },
+ {
+  "adcode": 350200,
+  "name": "厦门市",
+  "province": "福建省",
+  "provinceCode": "350000",
+  "center": [
+   118.11022,
+   24.490474
+  ],
+  "level": "city"
+ },
+ {
+  "adcode": 350300,
+  "name": "莆田市",
+  "province": "福建省",
+  "provinceCode": "350000",
+  "center": [
+   119.007558,
+   25.431011
+  ],
+  "level": "city"
+ },
+ {
+  "adcode": 350400,
+  "name": "三明市",
+  "province": "福建省",
+  "provinceCode": "350000",
+  "center": [
+   117.635001,
+   26.265444
+  ],
+  "level": "city"
+ },
+ {
+  "adcode": 350500,
+  "name": "泉州市",
+  "province": "福建省",
+  "provinceCode": "350000",
+  "center": [
+   118.589421,
+   24.908853
+  ],
+  "level": "city"
+ },
+ {
+  "adcode": 350600,
+  "name": "漳州市",
+  "province": "福建省",
+  "provinceCode": "350000",
+  "center": [
+   117.661801,
+   24.510897
+  ],
+  "level": "city"
+ },
+ {
+  "adcode": 350700,
+  "name": "南平市",
+  "province": "福建省",
+  "provinceCode": "350000",
+  "center": [
+   118.178459,
+   26.635627
+  ],
+  "level": "city"
+ },
+ {
+  "adcode": 350800,
+  "name": "龙岩市",
+  "province": "福建省",
+  "provinceCode": "350000",
+  "center": [
+   117.02978,
+   25.091603
+  ],
+  "level": "city"
+ },
+ {
+  "adcode": 350900,
+  "name": "宁德市",
+  "province": "福建省",
+  "provinceCode": "350000",
+  "center": [
+   119.527082,
+   26.65924
+  ],
+  "level": "city"
+ },
+ {
+  "adcode": 360100,
+  "name": "南昌市",
+  "province": "江西省",
+  "provinceCode": "360000",
+  "center": [
+   115.892151,
+   28.676493
+  ],
+  "level": "city"
+ },
+ {
+  "adcode": 360200,
+  "name": "景德镇市",
+  "province": "江西省",
+  "provinceCode": "360000",
+  "center": [
+   117.214664,
+   29.29256
+  ],
+  "level": "city"
+ },
+ {
+  "adcode": 360300,
+  "name": "萍乡市",
+  "province": "江西省",
+  "provinceCode": "360000",
+  "center": [
+   113.852186,
+   27.622946
+  ],
+  "level": "city"
+ },
+ {
+  "adcode": 360400,
+  "name": "九江市",
+  "province": "江西省",
+  "provinceCode": "360000",
+  "center": [
+   115.992811,
+   29.712034
+  ],
+  "level": "city"
+ },
+ {
+  "adcode": 360500,
+  "name": "新余市",
+  "province": "江西省",
+  "provinceCode": "360000",
+  "center": [
+   114.930835,
+   27.810834
+  ],
+  "level": "city"
+ },
+ {
+  "adcode": 360600,
+  "name": "鹰潭市",
+  "province": "江西省",
+  "provinceCode": "360000",
+  "center": [
+   117.033838,
+   28.238638
+  ],
+  "level": "city"
+ },
+ {
+  "adcode": 360700,
+  "name": "赣州市",
+  "province": "江西省",
+  "provinceCode": "360000",
+  "center": [
+   114.940278,
+   25.85097
+  ],
+  "level": "city"
+ },
+ {
+  "adcode": 360800,
+  "name": "吉安市",
+  "province": "江西省",
+  "provinceCode": "360000",
+  "center": [
+   114.986373,
+   27.111699
+  ],
+  "level": "city"
+ },
+ {
+  "adcode": 360900,
+  "name": "宜春市",
+  "province": "江西省",
+  "provinceCode": "360000",
+  "center": [
+   114.391136,
+   27.8043
+  ],
+  "level": "city"
+ },
+ {
+  "adcode": 361000,
+  "name": "抚州市",
+  "province": "江西省",
+  "provinceCode": "360000",
+  "center": [
+   116.358351,
+   27.98385
+  ],
+  "level": "city"
+ },
+ {
+  "adcode": 361100,
+  "name": "上饶市",
+  "province": "江西省",
+  "provinceCode": "360000",
+  "center": [
+   117.971185,
+   28.44442
+  ],
+  "level": "city"
+ },
+ {
+  "adcode": 370100,
+  "name": "济南市",
+  "province": "山东省",
+  "provinceCode": "370000",
+  "center": [
+   117.000923,
+   36.675807
+  ],
+  "level": "city"
+ },
+ {
+  "adcode": 370200,
+  "name": "青岛市",
+  "province": "山东省",
+  "provinceCode": "370000",
+  "center": [
+   120.355173,
+   36.082982
+  ],
+  "level": "city"
+ },
+ {
+  "adcode": 370300,
+  "name": "淄博市",
+  "province": "山东省",
+  "provinceCode": "370000",
+  "center": [
+   118.047648,
+   36.814939
+  ],
+  "level": "city"
+ },
+ {
+  "adcode": 370400,
+  "name": "枣庄市",
+  "province": "山东省",
+  "provinceCode": "370000",
+  "center": [
+   117.557964,
+   34.856424
+  ],
+  "level": "city"
+ },
+ {
+  "adcode": 370500,
+  "name": "东营市",
+  "province": "山东省",
+  "provinceCode": "370000",
+  "center": [
+   118.66471,
+   37.434564
+  ],
+  "level": "city"
+ },
+ {
+  "adcode": 370600,
+  "name": "烟台市",
+  "province": "山东省",
+  "provinceCode": "370000",
+  "center": [
+   121.391382,
+   37.539297
+  ],
+  "level": "city"
+ },
+ {
+  "adcode": 370700,
+  "name": "潍坊市",
+  "province": "山东省",
+  "provinceCode": "370000",
+  "center": [
+   119.107078,
+   36.70925
+  ],
+  "level": "city"
+ },
+ {
+  "adcode": 370800,
+  "name": "济宁市",
+  "province": "山东省",
+  "provinceCode": "370000",
+  "center": [
+   116.587245,
+   35.415393
+  ],
+  "level": "city"
+ },
+ {
+  "adcode": 370900,
+  "name": "泰安市",
+  "province": "山东省",
+  "provinceCode": "370000",
+  "center": [
+   117.129063,
+   36.194968
+  ],
+  "level": "city"
+ },
+ {
+  "adcode": 371000,
+  "name": "威海市",
+  "province": "山东省",
+  "provinceCode": "370000",
+  "center": [
+   122.116394,
+   37.509691
+  ],
+  "level": "city"
+ },
+ {
+  "adcode": 371100,
+  "name": "日照市",
+  "province": "山东省",
+  "provinceCode": "370000",
+  "center": [
+   119.461208,
+   35.428588
+  ],
+  "level": "city"
+ },
+ {
+  "adcode": 371300,
+  "name": "临沂市",
+  "province": "山东省",
+  "provinceCode": "370000",
+  "center": [
+   118.326443,
+   35.065282
+  ],
+  "level": "city"
+ },
+ {
+  "adcode": 371400,
+  "name": "德州市",
+  "province": "山东省",
+  "provinceCode": "370000",
+  "center": [
+   116.307428,
+   37.453968
+  ],
+  "level": "city"
+ },
+ {
+  "adcode": 371500,
+  "name": "聊城市",
+  "province": "山东省",
+  "provinceCode": "370000",
+  "center": [
+   115.980367,
+   36.456013
+  ],
+  "level": "city"
+ },
+ {
+  "adcode": 371600,
+  "name": "滨州市",
+  "province": "山东省",
+  "provinceCode": "370000",
+  "center": [
+   118.016974,
+   37.383542
+  ],
+  "level": "city"
+ },
+ {
+  "adcode": 371700,
+  "name": "菏泽市",
+  "province": "山东省",
+  "provinceCode": "370000",
+  "center": [
+   115.469381,
+   35.246531
+  ],
+  "level": "city"
+ }
+]

@@ -1,0 +1,3047 @@
+{
+ "meta": {
+  "title": "华东核战避难地风险地图",
+  "subtitle": "625 个县级单元 · 公开资料桌面推演",
+  "version": "1.0.0",
+  "generatedAt": "2026-10-29T06:58:56.251Z",
+  "countyCount": 625,
+  "provinceCount": 7,
+  "model": {
+   "weights": {
+    "strike": 0.54,
+    "fallout": 0.32,
+    "secondary": 0.14
+   },
+   "survivalWeights": {
+    "hazardInverse": 0.34,
+    "terrain": 0.26,
+    "selfSuff": 0.22,
+    "access": 0.1,
+    "service": 0.08
+   },
+   "recommendWeights": {
+    "safety": 0.58,
+    "survival": 0.42,
+    "plainPenalty": true
+   },
+   "assumedYieldKt": 150,
+   "severeRadiusKm": 4.2,
+   "lightRadiusKm": 11,
+   "plumeLengthKm": 320,
+   "note": "危险度 = 直接打击/冲击波 54% + 放射性沉降 32% + 次生灾害 14%。所有数值为相对指数，不是物理剂量。"
+  },
+  "seasons": {
+   "winter": {
+    "from": 315,
+    "to": 135,
+    "label": "冬季 · 西北风",
+    "short": "西北风",
+    "desc": "沉降主轴向东南，压向苏南、上海、浙北"
+   },
+   "summer": {
+    "from": 135,
+    "to": 315,
+    "label": "夏季 · 东南风",
+    "short": "东南风",
+    "desc": "沉降主轴向西北，压向苏锡常、南京方向"
+   },
+   "shoulder": {
+    "from": 45,
+    "to": 225,
+    "label": "春秋 · 东北风",
+    "short": "东北风",
+    "desc": "沉降主轴向西南，压向青浦、嘉兴、湖州"
+   }
+  },
+  "scenarios": {
+   "full": {
+    "key": "full",
+    "label": "全面核交换",
+    "short": "全面",
+    "desc": "所有战略、军事、港口、工业与水利节点均可能被打击。",
+    "types": null,
+    "noBlast": false,
+    "typeFactor": {}
+   },
+   "limited": {
+    "key": "limited",
+    "label": "有限打击",
+    "short": "有限",
+    "desc": "只打击核设施、军港、指挥枢纽、机场、港口、铁路、钢铁与重点化工等硬目标。",
+    "types": [
+     "nuclear",
+     "naval",
+     "command",
+     "airbase",
+     "port",
+     "rail",
+     "steel",
+     "chem",
+     "factory"
+    ],
+    "noBlast": false,
+    "typeFactor": {
+     "airbase": 0.55,
+     "port": 0.8,
+     "rail": 0.7,
+     "steel": 0.7,
+     "chem": 0.7,
+     "factory": 0.45
+    }
+   },
+   "edge": {
+    "key": "edge",
+    "label": "边缘波及",
+    "short": "波及",
+    "desc": "假定主要爆心在邻近区域，只计算放射性沉降、化工与水利次生灾害。",
+    "types": [
+     "nuclear",
+     "petrochem",
+     "chem",
+     "dam"
+    ],
+    "noBlast": true,
+    "typeFactor": {}
+   }
+  },
+  "types": {
+   "nuclear": {
+    "label": "核电站",
+    "icon": "☢",
+    "color": "#c77dff",
+    "fallout": 1.5
+   },
+   "naval": {
+    "label": "军港/海军基地",
+    "icon": "⚓",
+    "color": "#4cc9f0",
+    "fallout": 0.65
+   },
+   "command": {
+    "label": "指挥/战略枢纽",
+    "icon": "★",
+    "color": "#ff4d6d",
+    "fallout": 0.85
+   },
+   "airbase": {
+    "label": "机场/航空枢纽",
+    "icon": "✈",
+    "color": "#90e0ef",
+    "fallout": 0.35
+   },
+   "port": {
+    "label": "大型港口",
+    "icon": "⚓",
+    "color": "#48cae4",
+    "fallout": 0.45
+   },
+   "steel": {
+    "label": "钢铁冶金",
+    "icon": "▰",
+    "color": "#f4a261",
+    "fallout": 0.55
+   },
+   "petrochem": {
+    "label": "石化/化工",
+    "icon": "◈",
+    "color": "#ff9f1c",
+    "fallout": 0.85
+   },
+   "dam": {
+    "label": "大坝/水利",
+    "icon": "≋",
+    "color": "#00b4d8",
+    "fallout": 0.12
+   },
+   "rail": {
+    "label": "铁路编组/枢纽",
+    "icon": "⛙",
+    "color": "#adb5bd",
+    "fallout": 0.25
+   },
+   "industry": {
+    "label": "先进制造/园区",
+    "icon": "▣",
+    "color": "#e9c46a",
+    "fallout": 0.4
+   },
+   "chem": {
+    "label": "化工园区/化工企业",
+    "icon": "⚗",
+    "color": "#ffb703",
+    "fallout": 0.9
+   },
+   "factory": {
+    "label": "大型工厂/制造基地",
+    "icon": "▤",
+    "color": "#c9d1d9",
+    "fallout": 0.35
+   }
+  },
+  "corridors": {
+   "上海主城": {
+    "hw": "G50 沪渝高速 / G60 沪昆高速",
+    "via": "虹桥—青浦—湖州/杭州",
+    "bottleneck": "延安高架、G50 徐泾、杭州绕城"
+   },
+   "上海郊区": {
+    "hw": "G15/G50 市域高速",
+    "via": "青浦—金泽，或崇明方向",
+    "bottleneck": "长江隧桥、G50 徐泾段"
+   },
+   "苏南": {
+    "hw": "G4221 沪武高速 / G50 沪渝高速",
+    "via": "溧水—芜湖—宣城",
+    "bottleneck": "南京绕城、马鞍山长江大桥"
+   },
+   "浙江省": {
+    "hw": "G60 沪昆高速 → G25 长深高速",
+    "via": "杭州—金华—丽水",
+    "bottleneck": "杭州绕城、金华东枢纽"
+   },
+   "皖南": {
+    "hw": "G50 沪渝高速 / G56 杭瑞高速",
+    "via": "湖州—宣城—泾县，或杭州—黄山",
+    "bottleneck": "黄山北站、徽杭高速隧道群、G50 广德段"
+   },
+   "浙西南": {
+    "hw": "G60 沪昆高速 → G25 长深高速",
+    "via": "杭州—金华—丽水",
+    "bottleneck": "杭州绕城、金华东枢纽、G25 丽水段长隧道"
+   },
+   "皖西": {
+    "hw": "G40 沪陕高速 → G35 济广高速",
+    "via": "合肥—六安—霍山",
+    "bottleneck": "合肥绕城、六安—霍山山路"
+   },
+   "皖中": {
+    "hw": "G40 沪陕高速 → G35 济广高速",
+    "via": "合肥—桐城—岳西",
+    "bottleneck": "合肥绕城、G35 山区路段"
+   },
+   "皖北": {
+    "hw": "G3 京台高速 / G36 宁洛高速",
+    "via": "蚌埠—阜阳—亳州",
+    "bottleneck": "蚌埠枢纽、淮河大桥"
+   },
+   "苏中": {
+    "hw": "G15 沈海高速 / G40 沪陕高速",
+    "via": "南通—泰州—扬州",
+    "bottleneck": "苏通大桥、江阴大桥"
+   },
+   "浙北": {
+    "hw": "G56 杭瑞高速 / G25 长深高速",
+    "via": "杭州—临安—淳安",
+    "bottleneck": "杭州绕城、杭徽高速隧道"
+   },
+   "闽东北": {
+    "hw": "G15 沈海高速 / G1523 甬莞高速",
+    "via": "宁德—福安—寿宁",
+    "bottleneck": "宁德枢纽、山区路段"
+   },
+   "赣北": {
+    "hw": "G70 福银高速 / G56 杭瑞高速",
+    "via": "九江—修水，或南昌—铜鼓",
+    "bottleneck": "南昌绕城、赣西北山路"
+   },
+   "赣西": {
+    "hw": "G60 沪昆高速 / G45 大广高速",
+    "via": "宜春—铜鼓—修水",
+    "bottleneck": "宜春枢纽、山区路段"
+   },
+   "鲁南": {
+    "hw": "G2 京沪高速 → G22 青兰高速",
+    "via": "临沂—蒙阴—沂源",
+    "bottleneck": "临沂枢纽、沂蒙山隧道"
+   },
+   "鲁西南": {
+    "hw": "G1511 日兰高速 / G35 济广高速",
+    "via": "菏泽—济宁—临沂",
+    "bottleneck": "菏泽枢纽、黄河大桥"
+   },
+   "鲁西北": {
+    "hw": "G2 京沪高速 / G3 京台高速",
+    "via": "德州—济南—滨州",
+    "bottleneck": "济南绕城、黄河大桥"
+   },
+   "闽西北": {
+    "hw": "G3 京台高速 / G25 长深高速",
+    "via": "南平—建阳—武夷山",
+    "bottleneck": "武夷山隧道群、南平枢纽"
+   },
+   "赣东北": {
+    "hw": "G56 杭瑞高速 / G35 济广高速",
+    "via": "景德镇—婺源",
+    "bottleneck": "景德镇枢纽、婺源山区路段"
+   },
+   "鲁中": {
+    "hw": "G2 京沪高速 → G22 青兰高速",
+    "via": "临沂—莱芜—沂源",
+    "bottleneck": "江阴大桥/苏通大桥、临沂枢纽"
+   },
+   "胶东": {
+    "hw": "G15 沈海高速",
+    "via": "胶州—诸城—五莲",
+    "bottleneck": "胶州湾大桥、潍坊枢纽"
+   },
+   "苏北": {
+    "hw": "G15 沈海高速 / G2 京沪高速",
+    "via": "盐城—淮安—宿迁",
+    "bottleneck": "崇启大桥、苏通大桥、江阴大桥"
+   },
+   "浙东沿海": {
+    "hw": "G15 沈海高速 / G1512 甬金高速",
+    "via": "宁波—金华—丽水",
+    "bottleneck": "杭州湾跨海大桥、甬金高速隧道"
+   },
+   "赣南": {
+    "hw": "G45 大广高速 / G35 济广高速",
+    "via": "吉安—赣州—寻乌",
+    "bottleneck": "赣州枢纽、山区长下坡"
+   },
+   "闽南": {
+    "hw": "G15 沈海高速 → G76 厦蓉高速",
+    "via": "漳州—龙岩—长汀",
+    "bottleneck": "厦门海沧大桥、漳州枢纽"
+   },
+   "赣东": {
+    "hw": "G35 济广高速 / G70 福银高速",
+    "via": "抚州—资溪—黎川",
+    "bottleneck": "抚州枢纽、资溪山区"
+   }
+  },
+  "disclaimer": "本图是公开地理、工业布局、风向与军事地理常识基础上的桌面推演，不代表任何真实打击计划或情报结论。全面核交换下长三角不存在真正安全之地；战时请以当地人防部门指令为准。",
+  "sources": [
+   "阿里云 DataV.GeoAtlas 行政区划边界（2024）",
+   "第七次全国人口普查分县资料（2020）",
+   "OpenTopoData / SRTM 90m 地形采样",
+   "公开报道的核电、港口、钢铁、石化、机场、水利设施位置",
+   "公开气象常识：华东冬季西北风、夏季东南风、春秋东北风"
+  ]
+ },
+ "cities": [
+  {
+   "name": "上海市",
+   "province": "上海市",
+   "count": 16,
+   "pop": 24870895,
+   "center": [
+    121.42,
+    31.208
+   ],
+   "avgHazard": 71.6
+  },
+  {
+   "name": "杭州市",
+   "province": "浙江省",
+   "count": 13,
+   "pop": 13100709,
+   "center": [
+    120.068,
+    30.194
+   ],
+   "avgHazard": 39
+  },
+  {
+   "name": "苏州市",
+   "province": "江苏省",
+   "count": 9,
+   "pop": 11614335,
+   "center": [
+    120.725,
+    31.433
+   ],
+   "avgHazard": 48.8
+  },
+  {
+   "name": "临沂市",
+   "province": "山东省",
+   "count": 12,
+   "pop": 10474821,
+   "center": [
+    118.296,
+    35.19
+   ],
+   "avgHazard": 23.2
+  },
+  {
+   "name": "青岛市",
+   "province": "山东省",
+   "count": 10,
+   "pop": 10071722,
+   "center": [
+    120.247,
+    36.275
+   ],
+   "avgHazard": 46.1
+  },
+  {
+   "name": "温州市",
+   "province": "浙江省",
+   "count": 12,
+   "pop": 9572903,
+   "center": [
+    120.643,
+    27.88
+   ],
+   "avgHazard": 33.5
+  },
+  {
+   "name": "宁波市",
+   "province": "浙江省",
+   "count": 10,
+   "pop": 9404283,
+   "center": [
+    121.476,
+    29.877
+   ],
+   "avgHazard": 62.4
+  },
+  {
+   "name": "潍坊市",
+   "province": "山东省",
+   "count": 12,
+   "pop": 9315588,
+   "center": [
+    119.063,
+    36.581
+   ],
+   "avgHazard": 36.8
+  },
+  {
+   "name": "南京市",
+   "province": "江苏省",
+   "count": 11,
+   "pop": 9314685,
+   "center": [
+    118.8,
+    32.006
+   ],
+   "avgHazard": 65.6
+  },
+  {
+   "name": "泉州市",
+   "province": "福建省",
+   "count": 12,
+   "pop": 9187352,
+   "center": [
+    118.519,
+    24.945
+   ],
+   "avgHazard": 32.8
+  },
+  {
+   "name": "赣州市",
+   "province": "江西省",
+   "count": 18,
+   "pop": 8970014,
+   "center": [
+    115.24,
+    25.745
+   ],
+   "avgHazard": 14
+  },
+  {
+   "name": "徐州市",
+   "province": "江苏省",
+   "count": 10,
+   "pop": 8515925,
+   "center": [
+    117.469,
+    34.343
+   ],
+   "avgHazard": 21.8
+  },
+  {
+   "name": "济南市",
+   "province": "山东省",
+   "count": 12,
+   "pop": 8445743,
+   "center": [
+    117.162,
+    36.639
+   ],
+   "avgHazard": 41.8
+  },
+  {
+   "name": "菏泽市",
+   "province": "山东省",
+   "count": 9,
+   "pop": 8399717,
+   "center": [
+    115.696,
+    35.182
+   ],
+   "avgHazard": 22.2
+  },
+  {
+   "name": "福州市",
+   "province": "福建省",
+   "count": 13,
+   "pop": 8291268,
+   "center": [
+    119.35,
+    25.999
+   ],
+   "avgHazard": 55.7
+  },
+  {
+   "name": "合肥市",
+   "province": "安徽省",
+   "count": 9,
+   "pop": 8226444,
+   "center": [
+    117.332,
+    31.813
+   ],
+   "avgHazard": 47.3
+  },
+  {
+   "name": "阜阳市",
+   "province": "安徽省",
+   "count": 8,
+   "pop": 8200264,
+   "center": [
+    115.67,
+    32.931
+   ],
+   "avgHazard": 26.7
+  },
+  {
+   "name": "济宁市",
+   "province": "山东省",
+   "count": 11,
+   "pop": 7987263,
+   "center": [
+    116.682,
+    35.418
+   ],
+   "avgHazard": 17.6
+  },
+  {
+   "name": "无锡市",
+   "province": "江苏省",
+   "count": 7,
+   "pop": 7462135,
+   "center": [
+    120.219,
+    31.628
+   ],
+   "avgHazard": 51.1
+  },
+  {
+   "name": "南通市",
+   "province": "江苏省",
+   "count": 7,
+   "pop": 7334840,
+   "center": [
+    120.985,
+    32.147
+   ],
+   "avgHazard": 37.5
+  },
+  {
+   "name": "金华市",
+   "province": "浙江省",
+   "count": 9,
+   "pop": 7050683,
+   "center": [
+    119.939,
+    29.166
+   ],
+   "avgHazard": 25
+  },
+  {
+   "name": "烟台市",
+   "province": "山东省",
+   "count": 11,
+   "pop": 6638054,
+   "center": [
+    120.864,
+    37.344
+   ],
+   "avgHazard": 40.6
+  },
+  {
+   "name": "盐城市",
+   "province": "江苏省",
+   "count": 9,
+   "pop": 6628622,
+   "center": [
+    120.059,
+    33.522
+   ],
+   "avgHazard": 25.1
+  },
+  {
+   "name": "台州市",
+   "province": "浙江省",
+   "count": 9,
+   "pop": 6622888,
+   "center": [
+    121.248,
+    28.643
+   ],
+   "avgHazard": 28.4
+  },
+  {
+   "name": "上饶市",
+   "province": "江西省",
+   "count": 12,
+   "pop": 6491088,
+   "center": [
+    117.483,
+    28.66
+   ],
+   "avgHazard": 14.7
+  },
+  {
+   "name": "南昌市",
+   "province": "江西省",
+   "count": 9,
+   "pop": 6255007,
+   "center": [
+    115.929,
+    28.625
+   ],
+   "avgHazard": 53.3
+  },
+  {
+   "name": "聊城市",
+   "province": "山东省",
+   "count": 8,
+   "pop": 5952128,
+   "center": [
+    115.866,
+    36.472
+   ],
+   "avgHazard": 17.3
+  },
+  {
+   "name": "宿州市",
+   "province": "安徽省",
+   "count": 5,
+   "pop": 5324476,
+   "center": [
+    117.118,
+    33.817
+   ],
+   "avgHazard": 17
+  },
+  {
+   "name": "德州市",
+   "province": "山东省",
+   "count": 11,
+   "pop": 5306110,
+   "center": [
+    116.634,
+    37.283
+   ],
+   "avgHazard": 16.6
+  },
+  {
+   "name": "常州市",
+   "province": "江苏省",
+   "count": 6,
+   "pop": 5278121,
+   "center": [
+    119.848,
+    31.711
+   ],
+   "avgHazard": 50.4
+  },
+  {
+   "name": "绍兴市",
+   "province": "浙江省",
+   "count": 6,
+   "pop": 5270977,
+   "center": [
+    120.586,
+    29.86
+   ],
+   "avgHazard": 45.5
+  },
+  {
+   "name": "厦门市",
+   "province": "福建省",
+   "count": 6,
+   "pop": 5163970,
+   "center": [
+    118.117,
+    24.562
+   ],
+   "avgHazard": 56.9
+  },
+  {
+   "name": "泰安市",
+   "province": "山东省",
+   "count": 6,
+   "pop": 5150020,
+   "center": [
+    117.067,
+    36.033
+   ],
+   "avgHazard": 21.2
+  },
+  {
+   "name": "嘉兴市",
+   "province": "浙江省",
+   "count": 7,
+   "pop": 5082214,
+   "center": [
+    120.768,
+    30.666
+   ],
+   "avgHazard": 53.9
+  },
+  {
+   "name": "宜春市",
+   "province": "江西省",
+   "count": 10,
+   "pop": 5007702,
+   "center": [
+    115.086,
+    28.181
+   ],
+   "avgHazard": 16.8
+  },
+  {
+   "name": "亳州市",
+   "province": "安徽省",
+   "count": 4,
+   "pop": 4996844,
+   "center": [
+    116.155,
+    33.477
+   ],
+   "avgHazard": 7.1
+  },
+  {
+   "name": "宿迁市",
+   "province": "江苏省",
+   "count": 5,
+   "pop": 4833280,
+   "center": [
+    118.515,
+    33.88
+   ],
+   "avgHazard": 19.9
+  },
+  {
+   "name": "九江市",
+   "province": "江西省",
+   "count": 13,
+   "pop": 4600276,
+   "center": [
+    115.724,
+    29.427
+   ],
+   "avgHazard": 30.4
+  },
+  {
+   "name": "连云港市",
+   "province": "江苏省",
+   "count": 6,
+   "pop": 4599360,
+   "center": [
+    119.121,
+    34.529
+   ],
+   "avgHazard": 43.6
+  },
+  {
+   "name": "扬州市",
+   "province": "江苏省",
+   "count": 6,
+   "pop": 4559797,
+   "center": [
+    119.409,
+    32.569
+   ],
+   "avgHazard": 41.2
+  },
+  {
+   "name": "吉安市",
+   "province": "江西省",
+   "count": 13,
+   "pop": 4469176,
+   "center": [
+    114.879,
+    27.021
+   ],
+   "avgHazard": 14.1
+  },
+  {
+   "name": "漳州市",
+   "province": "福建省",
+   "count": 11,
+   "pop": 4398011,
+   "center": [
+    117.516,
+    24.26
+   ],
+   "avgHazard": 29.6
+  },
+  {
+   "name": "六安市",
+   "province": "安徽省",
+   "count": 7,
+   "pop": 4393699,
+   "center": [
+    116.412,
+    31.807
+   ],
+   "avgHazard": 10.3
+  },
+  {
+   "name": "泰州市",
+   "province": "江苏省",
+   "count": 6,
+   "pop": 4234465,
+   "center": [
+    120.01,
+    32.451
+   ],
+   "avgHazard": 38.5
+  },
+  {
+   "name": "淮安市",
+   "province": "江苏省",
+   "count": 7,
+   "pop": 4215157,
+   "center": [
+    119.003,
+    33.469
+   ],
+   "avgHazard": 24.4
+  },
+  {
+   "name": "安庆市",
+   "province": "安徽省",
+   "count": 10,
+   "pop": 4134903,
+   "center": [
+    116.65,
+    30.555
+   ],
+   "avgHazard": 24
+  },
+  {
+   "name": "淄博市",
+   "province": "山东省",
+   "count": 8,
+   "pop": 4127470,
+   "center": [
+    118.047,
+    36.722
+   ],
+   "avgHazard": 28.8
+  },
+  {
+   "name": "滁州市",
+   "province": "安徽省",
+   "count": 8,
+   "pop": 4064383,
+   "center": [
+    118.165,
+    32.539
+   ],
+   "avgHazard": 29.6
+  },
+  {
+   "name": "滨州市",
+   "province": "山东省",
+   "count": 7,
+   "pop": 3928568,
+   "center": [
+    117.818,
+    37.365
+   ],
+   "avgHazard": 20.1
+  },
+  {
+   "name": "枣庄市",
+   "province": "山东省",
+   "count": 6,
+   "pop": 3855601,
+   "center": [
+    117.357,
+    34.936
+   ],
+   "avgHazard": 24.3
+  },
+  {
+   "name": "抚州市",
+   "province": "江西省",
+   "count": 11,
+   "pop": 3614866,
+   "center": [
+    116.422,
+    27.71
+   ],
+   "avgHazard": 19.3
+  },
+  {
+   "name": "湖州市",
+   "province": "浙江省",
+   "count": 5,
+   "pop": 3367579,
+   "center": [
+    120.02,
+    30.801
+   ],
+   "avgHazard": 33.6
+  },
+  {
+   "name": "芜湖市",
+   "province": "安徽省",
+   "count": 7,
+   "pop": 3334926,
+   "center": [
+    118.266,
+    31.231
+   ],
+   "avgHazard": 43.8
+  },
+  {
+   "name": "莆田市",
+   "province": "福建省",
+   "count": 5,
+   "pop": 3210714,
+   "center": [
+    118.953,
+    25.393
+   ],
+   "avgHazard": 29.9
+  },
+  {
+   "name": "宁德市",
+   "province": "福建省",
+   "count": 9,
+   "pop": 3146789,
+   "center": [
+    119.641,
+    26.977
+   ],
+   "avgHazard": 24.7
+  },
+  {
+   "name": "蚌埠市",
+   "province": "安徽省",
+   "count": 7,
+   "pop": 3140315,
+   "center": [
+    117.393,
+    33.042
+   ],
+   "avgHazard": 29.8
+  },
+  {
+   "name": "镇江市",
+   "province": "江苏省",
+   "count": 6,
+   "pop": 2990848,
+   "center": [
+    119.468,
+    32.075
+   ],
+   "avgHazard": 45.2
+  },
+  {
+   "name": "淮南市",
+   "province": "安徽省",
+   "count": 7,
+   "pop": 2938858,
+   "center": [
+    116.859,
+    32.647
+   ],
+   "avgHazard": 31.9
+  },
+  {
+   "name": "龙岩市",
+   "province": "福建省",
+   "count": 7,
+   "pop": 2723637,
+   "center": [
+    116.73,
+    25.226
+   ],
+   "avgHazard": 13.1
+  },
+  {
+   "name": "日照市",
+   "province": "山东省",
+   "count": 4,
+   "pop": 2696160,
+   "center": [
+    119.171,
+    35.495
+   ],
+   "avgHazard": 37.1
+  },
+  {
+   "name": "南平市",
+   "province": "福建省",
+   "count": 10,
+   "pop": 2680645,
+   "center": [
+    118.16,
+    27.258
+   ],
+   "avgHazard": 12.2
+  },
+  {
+   "name": "宣城市",
+   "province": "安徽省",
+   "count": 7,
+   "pop": 2517634,
+   "center": [
+    118.921,
+    30.801
+   ],
+   "avgHazard": 24.1
+  },
+  {
+   "name": "丽水市",
+   "province": "浙江省",
+   "count": 9,
+   "pop": 2507396,
+   "center": [
+    119.779,
+    28.307
+   ],
+   "avgHazard": 19.5
+  },
+  {
+   "name": "威海市",
+   "province": "山东省",
+   "count": 4,
+   "pop": 2341818,
+   "center": [
+    122.081,
+    37.211
+   ],
+   "avgHazard": 45.1
+  },
+  {
+   "name": "衢州市",
+   "province": "浙江省",
+   "count": 6,
+   "pop": 2276184,
+   "center": [
+    118.789,
+    28.934
+   ],
+   "avgHazard": 40
+  },
+  {
+   "name": "三明市",
+   "province": "福建省",
+   "count": 11,
+   "pop": 2266335,
+   "center": [
+    117.475,
+    26.229
+   ],
+   "avgHazard": 12.4
+  },
+  {
+   "name": "马鞍山市",
+   "province": "安徽省",
+   "count": 6,
+   "pop": 2159930,
+   "center": [
+    118.437,
+    31.665
+   ],
+   "avgHazard": 42.9
+  },
+  {
+   "name": "东营市",
+   "province": "山东省",
+   "count": 5,
+   "pop": 2067035,
+   "center": [
+    118.461,
+    37.429
+   ],
+   "avgHazard": 38.3
+  },
+  {
+   "name": "淮北市",
+   "province": "安徽省",
+   "count": 4,
+   "pop": 1970265,
+   "center": [
+    116.787,
+    33.937
+   ],
+   "avgHazard": 44
+  },
+  {
+   "name": "萍乡市",
+   "province": "江西省",
+   "count": 5,
+   "pop": 1804805,
+   "center": [
+    113.861,
+    27.635
+   ],
+   "avgHazard": 19.8
+  },
+  {
+   "name": "景德镇市",
+   "province": "江西省",
+   "count": 4,
+   "pop": 1618979,
+   "center": [
+    117.173,
+    29.151
+   ],
+   "avgHazard": 33.4
+  },
+  {
+   "name": "池州市",
+   "province": "安徽省",
+   "count": 4,
+   "pop": 1342764,
+   "center": [
+    117.418,
+    30.461
+   ],
+   "avgHazard": 20.5
+  },
+  {
+   "name": "黄山市",
+   "province": "安徽省",
+   "count": 7,
+   "pop": 1330565,
+   "center": [
+    118.222,
+    29.866
+   ],
+   "avgHazard": 23.5
+  },
+  {
+   "name": "铜陵市",
+   "province": "安徽省",
+   "count": 4,
+   "pop": 1311726,
+   "center": [
+    117.598,
+    30.848
+   ],
+   "avgHazard": 40.5
+  },
+  {
+   "name": "新余市",
+   "province": "江西省",
+   "count": 2,
+   "pop": 1202499,
+   "center": [
+    114.867,
+    27.817
+   ],
+   "avgHazard": 29.2
+  },
+  {
+   "name": "舟山市",
+   "province": "浙江省",
+   "count": 4,
+   "pop": 1157817,
+   "center": [
+    122.209,
+    30.075
+   ],
+   "avgHazard": 50.5
+  },
+  {
+   "name": "鹰潭市",
+   "province": "江西省",
+   "count": 3,
+   "pop": 1154223,
+   "center": [
+    117.058,
+    28.251
+   ],
+   "avgHazard": 32.5
+  }
+ ],
+ "topSafe": [
+  {
+   "code": "360729",
+   "name": "全南县",
+   "city": "赣州市",
+   "province": "江西省",
+   "region": "赣南",
+   "hazard": 1.3,
+   "survival": 83,
+   "recommend": 92,
+   "terrain": 96,
+   "pop": 169503,
+   "plan": {
+    "primary": "全南县",
+    "backup": "武平县",
+    "mode": "hold"
+   }
+  },
+  {
+   "code": "360728",
+   "name": "定南县",
+   "city": "赣州市",
+   "province": "江西省",
+   "region": "赣南",
+   "hazard": 1.5,
+   "survival": 75,
+   "recommend": 89,
+   "terrain": 73,
+   "pop": 209914,
+   "plan": {
+    "primary": "定南县",
+    "backup": "武平县",
+    "mode": "hold"
+   }
+  },
+  {
+   "code": "360783",
+   "name": "龙南市",
+   "city": "赣州市",
+   "province": "江西省",
+   "region": "赣南",
+   "hazard": 2.3,
+   "survival": 80,
+   "recommend": 90,
+   "terrain": 89,
+   "pop": 319166,
+   "plan": {
+    "primary": "龙南市",
+    "backup": "武平县",
+    "mode": "hold"
+   }
+  },
+  {
+   "code": "360424",
+   "name": "修水县",
+   "city": "九江市",
+   "province": "江西省",
+   "region": "赣北",
+   "hazard": 2.7,
+   "survival": 78,
+   "recommend": 89,
+   "terrain": 82,
+   "pop": 710620,
+   "plan": {
+    "primary": "修水县",
+    "backup": "铜鼓县",
+    "mode": "hold"
+   }
+  },
+  {
+   "code": "360926",
+   "name": "铜鼓县",
+   "city": "宜春市",
+   "province": "江西省",
+   "region": "赣西",
+   "hazard": 3.1,
+   "survival": 83,
+   "recommend": 91,
+   "terrain": 97,
+   "pop": 116418,
+   "plan": {
+    "primary": "铜鼓县",
+    "backup": "修水县",
+    "mode": "hold"
+   }
+  },
+  {
+   "code": "341524",
+   "name": "金寨县",
+   "city": "六安市",
+   "province": "安徽省",
+   "region": "皖西",
+   "hazard": 3.2,
+   "survival": 80,
+   "recommend": 90,
+   "terrain": 82,
+   "pop": 496501,
+   "plan": {
+    "primary": "金寨县",
+    "backup": "岳西县",
+    "mode": "hold"
+   }
+  },
+  {
+   "code": "341504",
+   "name": "叶集区",
+   "city": "六安市",
+   "province": "安徽省",
+   "region": "皖西",
+   "hazard": 3.9,
+   "survival": 77,
+   "recommend": 88,
+   "terrain": 74,
+   "pop": 216229,
+   "plan": {
+    "primary": "叶集区",
+    "backup": "岳西县",
+    "mode": "hold"
+   }
+  },
+  {
+   "code": "371481",
+   "name": "乐陵市",
+   "city": "德州市",
+   "province": "山东省",
+   "region": "鲁西北",
+   "hazard": 4.9,
+   "survival": 53,
+   "recommend": 71,
+   "terrain": 4,
+   "pop": 559166,
+   "plan": {
+    "primary": "乐陵市",
+    "backup": "周村区",
+    "mode": "hold"
+   }
+  },
+  {
+   "code": "350825",
+   "name": "连城县",
+   "city": "龙岩市",
+   "province": "福建省",
+   "region": "闽西北",
+   "hazard": 5,
+   "survival": 81,
+   "recommend": 89,
+   "terrain": 100,
+   "pop": 250518,
+   "plan": {
+    "primary": "连城县",
+    "backup": "清流县",
+    "mode": "hold"
+   }
+  },
+  {
+   "code": "360735",
+   "name": "石城县",
+   "city": "赣州市",
+   "province": "江西省",
+   "region": "赣南",
+   "hazard": 5,
+   "survival": 79,
+   "recommend": 88,
+   "terrain": 90,
+   "pop": 283182,
+   "plan": {
+    "primary": "石城县",
+    "backup": "宁化县",
+    "mode": "hold"
+   }
+  },
+  {
+   "code": "371423",
+   "name": "庆云县",
+   "city": "德州市",
+   "province": "山东省",
+   "region": "鲁西北",
+   "hazard": 5.6,
+   "survival": 50,
+   "recommend": 69,
+   "terrain": 4,
+   "pop": 318105,
+   "plan": {
+    "primary": "庆云县",
+    "backup": "周村区",
+    "mode": "hold"
+   }
+  },
+  {
+   "code": "341525",
+   "name": "霍山县",
+   "city": "六安市",
+   "province": "安徽省",
+   "region": "皖西",
+   "hazard": 5.7,
+   "survival": 76,
+   "recommend": 87,
+   "terrain": 70,
+   "pop": 286197,
+   "plan": {
+    "primary": "霍山县",
+    "backup": "岳西县",
+    "mode": "hold"
+   }
+  },
+  {
+   "code": "341602",
+   "name": "谯城区",
+   "city": "亳州市",
+   "province": "安徽省",
+   "region": "皖北",
+   "hazard": 5.7,
+   "survival": 53,
+   "recommend": 70,
+   "terrain": 4,
+   "pop": 1537231,
+   "plan": {
+    "primary": "谯城区",
+    "backup": "市中区",
+    "mode": "hold"
+   }
+  },
+  {
+   "code": "350424",
+   "name": "宁化县",
+   "city": "三明市",
+   "province": "福建省",
+   "region": "闽西北",
+   "hazard": 5.7,
+   "survival": 80,
+   "recommend": 88,
+   "terrain": 96,
+   "pop": 261579,
+   "plan": {
+    "primary": "宁化县",
+    "backup": "石城县",
+    "mode": "hold"
+   }
+  },
+  {
+   "code": "360723",
+   "name": "大余县",
+   "city": "赣州市",
+   "province": "江西省",
+   "region": "赣南",
+   "hazard": 5.8,
+   "survival": 79,
+   "recommend": 88,
+   "terrain": 92,
+   "pop": 264995,
+   "plan": {
+    "primary": "大余县",
+    "backup": "遂川县",
+    "mode": "hold"
+   }
+  },
+  {
+   "code": "360821",
+   "name": "吉安县",
+   "city": "吉安市",
+   "province": "江西省",
+   "region": "赣南",
+   "hazard": 5.9,
+   "survival": 68,
+   "recommend": 83,
+   "terrain": 55,
+   "pop": 469513,
+   "plan": {
+    "primary": "吉安县",
+    "backup": "分宜县",
+    "mode": "hold"
+   }
+  },
+  {
+   "code": "340828",
+   "name": "岳西县",
+   "city": "安庆市",
+   "province": "安徽省",
+   "region": "皖中",
+   "hazard": 6,
+   "survival": 85,
+   "recommend": 90,
+   "terrain": 100,
+   "pop": 323837,
+   "plan": {
+    "primary": "岳西县",
+    "backup": "霍山县",
+    "mode": "hold"
+   }
+  },
+  {
+   "code": "350724",
+   "name": "松溪县",
+   "city": "南平市",
+   "province": "福建省",
+   "region": "闽西北",
+   "hazard": 6,
+   "survival": 81,
+   "recommend": 89,
+   "terrain": 94,
+   "pop": 130867,
+   "plan": {
+    "primary": "松溪县",
+    "backup": "庆元县",
+    "mode": "hold"
+   }
+  },
+  {
+   "code": "350821",
+   "name": "长汀县",
+   "city": "龙岩市",
+   "province": "福建省",
+   "region": "闽西北",
+   "hazard": 6,
+   "survival": 79,
+   "recommend": 88,
+   "terrain": 96,
+   "pop": 397470,
+   "plan": {
+    "primary": "长汀县",
+    "backup": "瑞金市",
+    "mode": "hold"
+   }
+  },
+  {
+   "code": "360924",
+   "name": "宜丰县",
+   "city": "宜春市",
+   "province": "江西省",
+   "region": "赣西",
+   "hazard": 6.2,
+   "survival": 75,
+   "recommend": 86,
+   "terrain": 76,
+   "pop": 252974,
+   "plan": {
+    "primary": "宜丰县",
+    "backup": "分宜县",
+    "mode": "hold"
+   }
+  },
+  {
+   "code": "341621",
+   "name": "涡阳县",
+   "city": "亳州市",
+   "province": "安徽省",
+   "region": "皖北",
+   "hazard": 6.3,
+   "survival": 53,
+   "recommend": 70,
+   "terrain": 4,
+   "pop": 1170719,
+   "plan": {
+    "primary": "涡阳县",
+    "backup": "叶集区",
+    "mode": "hold"
+   }
+  },
+  {
+   "code": "350423",
+   "name": "清流县",
+   "city": "三明市",
+   "province": "福建省",
+   "region": "闽西北",
+   "hazard": 6.3,
+   "survival": 80,
+   "recommend": 88,
+   "terrain": 98,
+   "pop": 118029,
+   "plan": {
+    "primary": "清流县",
+    "backup": "石城县",
+    "mode": "hold"
+   }
+  },
+  {
+   "code": "350429",
+   "name": "泰宁县",
+   "city": "三明市",
+   "province": "福建省",
+   "region": "闽西北",
+   "hazard": 6.5,
+   "survival": 80,
+   "recommend": 88,
+   "terrain": 94,
+   "pop": 104071,
+   "plan": {
+    "primary": "泰宁县",
+    "backup": "黎川县",
+    "mode": "hold"
+   }
+  },
+  {
+   "code": "360730",
+   "name": "宁都县",
+   "city": "赣州市",
+   "province": "江西省",
+   "region": "赣南",
+   "hazard": 6.5,
+   "survival": 78,
+   "recommend": 87,
+   "terrain": 90,
+   "pop": 702394,
+   "plan": {
+    "primary": "宁都县",
+    "backup": "广昌县",
+    "mode": "hold"
+   }
+  },
+  {
+   "code": "341622",
+   "name": "蒙城县",
+   "city": "亳州市",
+   "province": "安徽省",
+   "region": "皖北",
+   "hazard": 6.7,
+   "survival": 53,
+   "recommend": 70,
+   "terrain": 4,
+   "pop": 1101640,
+   "plan": {
+    "primary": "蒙城县",
+    "backup": "叶集区",
+    "mode": "hold"
+   }
+  },
+  {
+   "code": "350725",
+   "name": "政和县",
+   "city": "南平市",
+   "province": "福建省",
+   "region": "闽西北",
+   "hazard": 6.9,
+   "survival": 82,
+   "recommend": 88,
+   "terrain": 98,
+   "pop": 179413,
+   "plan": {
+    "primary": "政和县",
+    "backup": "庆元县",
+    "mode": "hold"
+   }
+  },
+  {
+   "code": "360734",
+   "name": "寻乌县",
+   "city": "赣州市",
+   "province": "江西省",
+   "region": "赣南",
+   "hazard": 6.9,
+   "survival": 81,
+   "recommend": 88,
+   "terrain": 96,
+   "pop": 280219,
+   "plan": {
+    "primary": "寻乌县",
+    "backup": "武平县",
+    "mode": "hold"
+   }
+  },
+  {
+   "code": "371725",
+   "name": "郓城县",
+   "city": "菏泽市",
+   "province": "山东省",
+   "region": "鲁西南",
+   "hazard": 7,
+   "survival": 50,
+   "recommend": 68,
+   "terrain": 4,
+   "pop": 1120854,
+   "plan": {
+    "primary": "郓城县",
+    "backup": "平阴县",
+    "mode": "hold"
+   }
+  },
+  {
+   "code": "320321",
+   "name": "丰县",
+   "city": "徐州市",
+   "province": "江苏省",
+   "region": "苏北",
+   "hazard": 7.1,
+   "survival": 51,
+   "recommend": 69,
+   "terrain": 4,
+   "pop": 935200,
+   "plan": {
+    "primary": "丰县",
+    "backup": "市中区",
+    "mode": "hold"
+   }
+  },
+  {
+   "code": "331126",
+   "name": "庆元县",
+   "city": "丽水市",
+   "province": "浙江省",
+   "region": "浙西南",
+   "hazard": 7.4,
+   "survival": 84,
+   "recommend": 89,
+   "terrain": 100,
+   "pop": 142551,
+   "plan": {
+    "primary": "庆元县",
+    "backup": "松溪县",
+    "mode": "hold"
+   }
+  }
+ ],
+ "topRisk": [
+  {
+   "code": "330206",
+   "name": "北仑区",
+   "city": "宁波市",
+   "province": "浙江省",
+   "region": "浙东沿海",
+   "hazard": 85.5,
+   "survival": 38,
+   "recommend": 24,
+   "terrain": 39,
+   "pop": 829448,
+   "plan": {
+    "primary": "龙泉市",
+    "backup": "仙居县",
+    "mode": "evacuate"
+   }
+  },
+  {
+   "code": "310113",
+   "name": "宝山区",
+   "city": "上海市",
+   "province": "上海市",
+   "region": "上海郊区",
+   "hazard": 83.2,
+   "survival": 29,
+   "recommend": 15,
+   "terrain": 4,
+   "pop": 2235218,
+   "plan": {
+    "primary": "黄山区",
+    "backup": "宁国市",
+    "mode": "evacuate"
+   }
+  },
+  {
+   "code": "310106",
+   "name": "静安区",
+   "city": "上海市",
+   "province": "上海市",
+   "region": "上海主城",
+   "hazard": 83.1,
+   "survival": 28,
+   "recommend": 15,
+   "terrain": 4,
+   "pop": 975707,
+   "plan": {
+    "primary": "黄山区",
+    "backup": "宁国市",
+    "mode": "evacuate"
+   }
+  },
+  {
+   "code": "310101",
+   "name": "黄浦区",
+   "city": "上海市",
+   "province": "上海市",
+   "region": "上海主城",
+   "hazard": 82.8,
+   "survival": 28,
+   "recommend": 15,
+   "terrain": 4,
+   "pop": 662030,
+   "plan": {
+    "primary": "黄山区",
+    "backup": "宁国市",
+    "mode": "evacuate"
+   }
+  },
+  {
+   "code": "320102",
+   "name": "玄武区",
+   "city": "南京市",
+   "province": "江苏省",
+   "region": "苏南",
+   "hazard": 82.5,
+   "survival": 34,
+   "recommend": 21,
+   "terrain": 20,
+   "pop": 537825,
+   "plan": {
+    "primary": "岳西县",
+    "backup": "泾县",
+    "mode": "evacuate"
+   }
+  },
+  {
+   "code": "310105",
+   "name": "长宁区",
+   "city": "上海市",
+   "province": "上海市",
+   "region": "上海主城",
+   "hazard": 82.1,
+   "survival": 29,
+   "recommend": 16,
+   "terrain": 4,
+   "pop": 693051,
+   "plan": {
+    "primary": "黄山区",
+    "backup": "宁国市",
+    "mode": "evacuate"
+   }
+  },
+  {
+   "code": "330211",
+   "name": "镇海区",
+   "city": "宁波市",
+   "province": "浙江省",
+   "region": "浙东沿海",
+   "hazard": 81.9,
+   "survival": 37,
+   "recommend": 24,
+   "terrain": 31,
+   "pop": 510462,
+   "plan": {
+    "primary": "龙泉市",
+    "backup": "仙居县",
+    "mode": "evacuate"
+   }
+  },
+  {
+   "code": "320113",
+   "name": "栖霞区",
+   "city": "南京市",
+   "province": "江苏省",
+   "region": "苏南",
+   "hazard": 81.6,
+   "survival": 34,
+   "recommend": 21,
+   "terrain": 19,
+   "pop": 987835,
+   "plan": {
+    "primary": "岳西县",
+    "backup": "泾县",
+    "mode": "evacuate"
+   }
+  },
+  {
+   "code": "320104",
+   "name": "秦淮区",
+   "city": "南京市",
+   "province": "江苏省",
+   "region": "苏南",
+   "hazard": 81.5,
+   "survival": 37,
+   "recommend": 25,
+   "terrain": 32,
+   "pop": 740809,
+   "plan": {
+    "primary": "岳西县",
+    "backup": "泾县",
+    "mode": "evacuate"
+   }
+  },
+  {
+   "code": "320106",
+   "name": "鼓楼区",
+   "city": "南京市",
+   "province": "江苏省",
+   "region": "苏南",
+   "hazard": 81.3,
+   "survival": 43,
+   "recommend": 29,
+   "terrain": 52,
+   "pop": 940387,
+   "plan": {
+    "primary": "岳西县",
+    "backup": "泾县",
+    "mode": "evacuate"
+   }
+  },
+  {
+   "code": "310109",
+   "name": "虹口区",
+   "city": "上海市",
+   "province": "上海市",
+   "region": "上海主城",
+   "hazard": 80.3,
+   "survival": 29,
+   "recommend": 17,
+   "terrain": 4,
+   "pop": 757498,
+   "plan": {
+    "primary": "黄山区",
+    "backup": "宁国市",
+    "mode": "evacuate"
+   }
+  },
+  {
+   "code": "320703",
+   "name": "连云区",
+   "city": "连云港市",
+   "province": "江苏省",
+   "region": "苏北",
+   "hazard": 80.1,
+   "survival": 36,
+   "recommend": 23,
+   "terrain": 20,
+   "pop": 292762,
+   "plan": {
+    "primary": "沂水县",
+    "backup": "市中区",
+    "mode": "evacuate"
+   }
+  },
+  {
+   "code": "310104",
+   "name": "徐汇区",
+   "city": "上海市",
+   "province": "上海市",
+   "region": "上海主城",
+   "hazard": 78.5,
+   "survival": 30,
+   "recommend": 19,
+   "terrain": 4,
+   "pop": 1113078,
+   "plan": {
+    "primary": "黄山区",
+    "backup": "宁国市",
+    "mode": "evacuate"
+   }
+  },
+  {
+   "code": "310107",
+   "name": "普陀区",
+   "city": "上海市",
+   "province": "上海市",
+   "region": "上海主城",
+   "hazard": 78.4,
+   "survival": 30,
+   "recommend": 19,
+   "terrain": 4,
+   "pop": 1239800,
+   "plan": {
+    "primary": "黄山区",
+    "backup": "宁国市",
+    "mode": "evacuate"
+   }
+  },
+  {
+   "code": "310110",
+   "name": "杨浦区",
+   "city": "上海市",
+   "province": "上海市",
+   "region": "上海主城",
+   "hazard": 77.4,
+   "survival": 30,
+   "recommend": 19,
+   "terrain": 4,
+   "pop": 1242548,
+   "plan": {
+    "primary": "黄山区",
+    "backup": "宁国市",
+    "mode": "evacuate"
+   }
+  },
+  {
+   "code": "310116",
+   "name": "金山区",
+   "city": "上海市",
+   "province": "上海市",
+   "region": "上海郊区",
+   "hazard": 77.1,
+   "survival": 32,
+   "recommend": 20,
+   "terrain": 4,
+   "pop": 822776,
+   "plan": {
+    "primary": "黄山区",
+    "backup": "东阳市",
+    "mode": "evacuate"
+   }
+  },
+  {
+   "code": "370203",
+   "name": "市北区",
+   "city": "青岛市",
+   "province": "山东省",
+   "region": "胶东",
+   "hazard": 76.6,
+   "survival": 31,
+   "recommend": 23,
+   "terrain": 19,
+   "pop": 1096879,
+   "plan": {
+    "primary": "沂源县",
+    "backup": "莱州市",
+    "mode": "evacuate"
+   }
+  },
+  {
+   "code": "330424",
+   "name": "海盐县",
+   "city": "嘉兴市",
+   "province": "浙江省",
+   "region": "浙北",
+   "hazard": 75.9,
+   "survival": 33,
+   "recommend": 21,
+   "terrain": 4,
+   "pop": 456775,
+   "plan": {
+    "primary": "黄山区",
+    "backup": "东阳市",
+    "mode": "evacuate"
+   }
+  },
+  {
+   "code": "310115",
+   "name": "浦东新区",
+   "city": "上海市",
+   "province": "上海市",
+   "region": "上海郊区",
+   "hazard": 74.7,
+   "survival": 32,
+   "recommend": 22,
+   "terrain": 4,
+   "pop": 5681512,
+   "plan": {
+    "primary": "黄山区",
+    "backup": "东阳市",
+    "mode": "evacuate"
+   }
+  },
+  {
+   "code": "350203",
+   "name": "思明区",
+   "city": "厦门市",
+   "province": "福建省",
+   "region": "闽南",
+   "hazard": 74.7,
+   "survival": 36,
+   "recommend": 30,
+   "terrain": 47,
+   "pop": 1073315,
+   "plan": {
+    "primary": "连城县",
+    "backup": "南安市",
+    "mode": "evacuate"
+   }
+  },
+  {
+   "code": "350205",
+   "name": "海沧区",
+   "city": "厦门市",
+   "province": "福建省",
+   "region": "闽南",
+   "hazard": 73.5,
+   "survival": 39,
+   "recommend": 32,
+   "terrain": 54,
+   "pop": 582519,
+   "plan": {
+    "primary": "连城县",
+    "backup": "南安市",
+    "mode": "evacuate"
+   }
+  },
+  {
+   "code": "320114",
+   "name": "雨花台区",
+   "city": "南京市",
+   "province": "江苏省",
+   "region": "苏南",
+   "hazard": 73,
+   "survival": 39,
+   "recommend": 30,
+   "terrain": 27,
+   "pop": 608780,
+   "plan": {
+    "primary": "岳西县",
+    "backup": "泾县",
+    "mode": "evacuate"
+   }
+  },
+  {
+   "code": "350103",
+   "name": "台江区",
+   "city": "福州市",
+   "province": "福建省",
+   "region": "闽东北",
+   "hazard": 72.5,
+   "survival": 47,
+   "recommend": 36,
+   "terrain": 76,
+   "pop": 411819,
+   "plan": {
+    "primary": "庆元县",
+    "backup": "古田县",
+    "mode": "evacuate"
+   }
+  },
+  {
+   "code": "350111",
+   "name": "晋安区",
+   "city": "福州市",
+   "province": "福建省",
+   "region": "闽东北",
+   "hazard": 72.1,
+   "survival": 49,
+   "recommend": 37,
+   "terrain": 76,
+   "pop": 789775,
+   "plan": {
+    "primary": "庆元县",
+    "backup": "古田县",
+    "mode": "evacuate"
+   }
+  },
+  {
+   "code": "350102",
+   "name": "鼓楼区",
+   "city": "福州市",
+   "province": "福建省",
+   "region": "闽东北",
+   "hazard": 72,
+   "survival": 48,
+   "recommend": 36,
+   "terrain": 78,
+   "pop": 669090,
+   "plan": {
+    "primary": "庆元县",
+    "backup": "古田县",
+    "mode": "evacuate"
+   }
+  },
+  {
+   "code": "350181",
+   "name": "福清市",
+   "city": "福州市",
+   "province": "福建省",
+   "region": "闽东北",
+   "hazard": 70.7,
+   "survival": 49,
+   "recommend": 38,
+   "terrain": 75,
+   "pop": 1390487,
+   "plan": {
+    "primary": "庆元县",
+    "backup": "古田县",
+    "mode": "evacuate"
+   }
+  },
+  {
+   "code": "350105",
+   "name": "马尾区",
+   "city": "福州市",
+   "province": "福建省",
+   "region": "闽东北",
+   "hazard": 69.9,
+   "survival": 50,
+   "recommend": 38,
+   "terrain": 75,
+   "pop": 290554,
+   "plan": {
+    "primary": "庆元县",
+    "backup": "古田县",
+    "mode": "evacuate"
+   }
+  },
+  {
+   "code": "371002",
+   "name": "环翠区",
+   "city": "威海市",
+   "province": "山东省",
+   "region": "胶东",
+   "hazard": 69.9,
+   "survival": 38,
+   "recommend": 31,
+   "terrain": 29,
+   "pop": 600000,
+   "plan": {
+    "primary": "莱州市",
+    "backup": "沂水县",
+    "mode": "evacuate"
+   }
+  },
+  {
+   "code": "320105",
+   "name": "建邺区",
+   "city": "南京市",
+   "province": "江苏省",
+   "region": "苏南",
+   "hazard": 69.7,
+   "survival": 40,
+   "recommend": 32,
+   "terrain": 27,
+   "pop": 534257,
+   "plan": {
+    "primary": "岳西县",
+    "backup": "泾县",
+    "mode": "evacuate"
+   }
+  },
+  {
+   "code": "330282",
+   "name": "慈溪市",
+   "city": "宁波市",
+   "province": "浙江省",
+   "region": "浙东沿海",
+   "hazard": 69.2,
+   "survival": 41,
+   "recommend": 33,
+   "terrain": 31,
+   "pop": 1829488,
+   "plan": {
+    "primary": "龙泉市",
+    "backup": "东阳市",
+    "mode": "evacuate"
+   }
+  }
+ ],
+ "havens": [
+  {
+   "code": "330127",
+   "name": "淳安县",
+   "city": "杭州市",
+   "province": "浙江省",
+   "region": "浙北",
+   "hazard": 18.7,
+   "survival": 77,
+   "recommend": 79,
+   "terrain": 82,
+   "pop": 328957,
+   "plan": {
+    "primary": "淳安县",
+    "backup": "歙县",
+    "mode": "hold"
+   }
+  },
+  {
+   "code": "330328",
+   "name": "文成县",
+   "city": "温州市",
+   "province": "浙江省",
+   "region": "浙东沿海",
+   "hazard": 26.5,
+   "survival": 75,
+   "recommend": 74,
+   "terrain": 97,
+   "pop": 288168,
+   "plan": {
+    "primary": "庆元县",
+    "backup": "青田县",
+    "mode": "evacuate"
+   }
+  },
+  {
+   "code": "330329",
+   "name": "泰顺县",
+   "city": "温州市",
+   "province": "浙江省",
+   "region": "浙东沿海",
+   "hazard": 15.6,
+   "survival": 80,
+   "recommend": 83,
+   "terrain": 100,
+   "pop": 265973,
+   "plan": {
+    "primary": "泰顺县",
+    "backup": "寿宁县",
+    "mode": "hold"
+   }
+  },
+  {
+   "code": "330824",
+   "name": "开化县",
+   "city": "衢州市",
+   "province": "浙江省",
+   "region": "浙西南",
+   "hazard": 17.3,
+   "survival": 71,
+   "recommend": 78,
+   "terrain": 65,
+   "pop": 258810,
+   "plan": {
+    "primary": "开化县",
+    "backup": "婺源县",
+    "mode": "hold"
+   }
+  },
+  {
+   "code": "331123",
+   "name": "遂昌县",
+   "city": "丽水市",
+   "province": "浙江省",
+   "region": "浙西南",
+   "hazard": 34.3,
+   "survival": 76,
+   "recommend": 70,
+   "terrain": 100,
+   "pop": 194385,
+   "plan": {
+    "primary": "浦城县",
+    "backup": "武义县",
+    "mode": "evacuate"
+   }
+  },
+  {
+   "code": "331124",
+   "name": "松阳县",
+   "city": "丽水市",
+   "province": "浙江省",
+   "region": "浙西南",
+   "hazard": 28.5,
+   "survival": 76,
+   "recommend": 73,
+   "terrain": 97,
+   "pop": 204880,
+   "plan": {
+    "primary": "浦城县",
+    "backup": "武义县",
+    "mode": "evacuate"
+   }
+  },
+  {
+   "code": "331125",
+   "name": "云和县",
+   "city": "丽水市",
+   "province": "浙江省",
+   "region": "浙西南",
+   "hazard": 24.3,
+   "survival": 78,
+   "recommend": 77,
+   "terrain": 100,
+   "pop": 129216,
+   "plan": {
+    "primary": "云和县",
+    "backup": "泰顺县",
+    "mode": "hold"
+   }
+  },
+  {
+   "code": "331126",
+   "name": "庆元县",
+   "city": "丽水市",
+   "province": "浙江省",
+   "region": "浙西南",
+   "hazard": 7.4,
+   "survival": 84,
+   "recommend": 89,
+   "terrain": 100,
+   "pop": 142551,
+   "plan": {
+    "primary": "庆元县",
+    "backup": "松溪县",
+    "mode": "hold"
+   }
+  },
+  {
+   "code": "331127",
+   "name": "景宁畲族自治县",
+   "city": "丽水市",
+   "province": "浙江省",
+   "region": "浙西南",
+   "hazard": 18.2,
+   "survival": 80,
+   "recommend": 81,
+   "terrain": 100,
+   "pop": 111011,
+   "plan": {
+    "primary": "景宁畲族自治县",
+    "backup": "泰顺县",
+    "mode": "hold"
+   }
+  },
+  {
+   "code": "331181",
+   "name": "龙泉市",
+   "city": "丽水市",
+   "province": "浙江省",
+   "region": "浙西南",
+   "hazard": 11.2,
+   "survival": 84,
+   "recommend": 87,
+   "terrain": 100,
+   "pop": 248866,
+   "plan": {
+    "primary": "龙泉市",
+    "backup": "浦城县",
+    "mode": "hold"
+   }
+  },
+  {
+   "code": "340828",
+   "name": "岳西县",
+   "city": "安庆市",
+   "province": "安徽省",
+   "region": "皖中",
+   "hazard": 6,
+   "survival": 85,
+   "recommend": 90,
+   "terrain": 100,
+   "pop": 323837,
+   "plan": {
+    "primary": "岳西县",
+    "backup": "霍山县",
+    "mode": "hold"
+   }
+  },
+  {
+   "code": "341003",
+   "name": "黄山区",
+   "city": "黄山市",
+   "province": "安徽省",
+   "region": "皖南",
+   "hazard": 12.5,
+   "survival": 83,
+   "recommend": 86,
+   "terrain": 87,
+   "pop": 146942,
+   "plan": {
+    "primary": "黄山区",
+    "backup": "旌德县",
+    "mode": "hold"
+   }
+  },
+  {
+   "code": "341022",
+   "name": "休宁县",
+   "city": "黄山市",
+   "province": "安徽省",
+   "region": "皖南",
+   "hazard": 26.9,
+   "survival": 74,
+   "recommend": 73,
+   "terrain": 82,
+   "pop": 211456,
+   "plan": {
+    "primary": "岳西县",
+    "backup": "绩溪县",
+    "mode": "evacuate"
+   }
+  },
+  {
+   "code": "341023",
+   "name": "黟县",
+   "city": "黄山市",
+   "province": "安徽省",
+   "region": "皖南",
+   "hazard": 17.3,
+   "survival": 80,
+   "recommend": 82,
+   "terrain": 91,
+   "pop": 76211,
+   "plan": {
+    "primary": "黟县",
+    "backup": "石台县",
+    "mode": "hold"
+   }
+  },
+  {
+   "code": "341024",
+   "name": "祁门县",
+   "city": "黄山市",
+   "province": "安徽省",
+   "region": "皖南",
+   "hazard": 18,
+   "survival": 78,
+   "recommend": 80,
+   "terrain": 86,
+   "pop": 145644,
+   "plan": {
+    "primary": "祁门县",
+    "backup": "石台县",
+    "mode": "hold"
+   }
+  },
+  {
+   "code": "341524",
+   "name": "金寨县",
+   "city": "六安市",
+   "province": "安徽省",
+   "region": "皖西",
+   "hazard": 3.2,
+   "survival": 80,
+   "recommend": 90,
+   "terrain": 82,
+   "pop": 496501,
+   "plan": {
+    "primary": "金寨县",
+    "backup": "岳西县",
+    "mode": "hold"
+   }
+  },
+  {
+   "code": "341525",
+   "name": "霍山县",
+   "city": "六安市",
+   "province": "安徽省",
+   "region": "皖西",
+   "hazard": 5.7,
+   "survival": 76,
+   "recommend": 87,
+   "terrain": 70,
+   "pop": 286197,
+   "plan": {
+    "primary": "霍山县",
+    "backup": "岳西县",
+    "mode": "hold"
+   }
+  },
+  {
+   "code": "341722",
+   "name": "石台县",
+   "city": "池州市",
+   "province": "安徽省",
+   "region": "皖南",
+   "hazard": 21.4,
+   "survival": 77,
+   "recommend": 78,
+   "terrain": 85,
+   "pop": 80612,
+   "plan": {
+    "primary": "石台县",
+    "backup": "祁门县",
+    "mode": "hold"
+   }
+  },
+  {
+   "code": "341823",
+   "name": "泾县",
+   "city": "宣城市",
+   "province": "安徽省",
+   "region": "皖南",
+   "hazard": 20.3,
+   "survival": 75,
+   "recommend": 78,
+   "terrain": 76,
+   "pop": 275837,
+   "plan": {
+    "primary": "泾县",
+    "backup": "黄山区",
+    "mode": "hold"
+   }
+  },
+  {
+   "code": "341824",
+   "name": "绩溪县",
+   "city": "宣城市",
+   "province": "安徽省",
+   "region": "皖南",
+   "hazard": 15.8,
+   "survival": 81,
+   "recommend": 83,
+   "terrain": 92,
+   "pop": 138784,
+   "plan": {
+    "primary": "绩溪县",
+    "backup": "歙县",
+    "mode": "hold"
+   }
+  },
+  {
+   "code": "341825",
+   "name": "旌德县",
+   "city": "宣城市",
+   "province": "安徽省",
+   "region": "皖南",
+   "hazard": 20.4,
+   "survival": 80,
+   "recommend": 80,
+   "terrain": 94,
+   "pop": 112368,
+   "plan": {
+    "primary": "旌德县",
+    "backup": "黄山区",
+    "mode": "hold"
+   }
+  },
+  {
+   "code": "350429",
+   "name": "泰宁县",
+   "city": "三明市",
+   "province": "福建省",
+   "region": "闽西北",
+   "hazard": 6.5,
+   "survival": 80,
+   "recommend": 88,
+   "terrain": 94,
+   "pop": 104071,
+   "plan": {
+    "primary": "泰宁县",
+    "backup": "黎川县",
+    "mode": "hold"
+   }
+  },
+  {
+   "code": "350430",
+   "name": "建宁县",
+   "city": "三明市",
+   "province": "福建省",
+   "region": "闽西北",
+   "hazard": 8.4,
+   "survival": 79,
+   "recommend": 86,
+   "terrain": 95,
+   "pop": 114400,
+   "plan": {
+    "primary": "建宁县",
+    "backup": "广昌县",
+    "mode": "hold"
+   }
+  },
+  {
+   "code": "350628",
+   "name": "平和县",
+   "city": "漳州市",
+   "province": "福建省",
+   "region": "闽南",
+   "hazard": 18.8,
+   "survival": 72,
+   "recommend": 77,
+   "terrain": 89,
+   "pop": 455042,
+   "plan": {
+    "primary": "平和县",
+    "backup": "永定区",
+    "mode": "hold"
+   }
+  },
+  {
+   "code": "350629",
+   "name": "华安县",
+   "city": "漳州市",
+   "province": "福建省",
+   "region": "闽南",
+   "hazard": 11.1,
+   "survival": 79,
+   "recommend": 85,
+   "terrain": 100,
+   "pop": 134276,
+   "plan": {
+    "primary": "华安县",
+    "backup": "漳平市",
+    "mode": "hold"
+   }
+  },
+  {
+   "code": "350722",
+   "name": "浦城县",
+   "city": "南平市",
+   "province": "福建省",
+   "region": "闽西北",
+   "hazard": 7.6,
+   "survival": 81,
+   "recommend": 88,
+   "terrain": 93,
+   "pop": 297719,
+   "plan": {
+    "primary": "浦城县",
+    "backup": "龙泉市",
+    "mode": "hold"
+   }
+  },
+  {
+   "code": "350723",
+   "name": "光泽县",
+   "city": "南平市",
+   "province": "福建省",
+   "region": "闽西北",
+   "hazard": 16.1,
+   "survival": 78,
+   "recommend": 81,
+   "terrain": 96,
+   "pop": 130294,
+   "plan": {
+    "primary": "光泽县",
+    "backup": "资溪县",
+    "mode": "hold"
+   }
+  },
+  {
+   "code": "350782",
+   "name": "武夷山市",
+   "city": "南平市",
+   "province": "福建省",
+   "region": "闽西北",
+   "hazard": 7.7,
+   "survival": 82,
+   "recommend": 88,
+   "terrain": 96,
+   "pop": 259668,
+   "plan": {
+    "primary": "武夷山市",
+    "backup": "铅山县",
+    "mode": "hold"
+   }
+  },
+  {
+   "code": "350821",
+   "name": "长汀县",
+   "city": "龙岩市",
+   "province": "福建省",
+   "region": "闽西北",
+   "hazard": 6,
+   "survival": 79,
+   "recommend": 88,
+   "terrain": 96,
+   "pop": 397470,
+   "plan": {
+    "primary": "长汀县",
+    "backup": "瑞金市",
+    "mode": "hold"
+   }
+  },
+  {
+   "code": "350825",
+   "name": "连城县",
+   "city": "龙岩市",
+   "province": "福建省",
+   "region": "闽西北",
+   "hazard": 5,
+   "survival": 81,
+   "recommend": 89,
+   "terrain": 100,
+   "pop": 250518,
+   "plan": {
+    "primary": "连城县",
+    "backup": "清流县",
+    "mode": "hold"
+   }
+  },
+  {
+   "code": "350924",
+   "name": "寿宁县",
+   "city": "宁德市",
+   "province": "福建省",
+   "region": "闽东北",
+   "hazard": 11,
+   "survival": 82,
+   "recommend": 86,
+   "terrain": 100,
+   "pop": 177960,
+   "plan": {
+    "primary": "寿宁县",
+    "backup": "泰顺县",
+    "mode": "hold"
+   }
+  },
+  {
+   "code": "350926",
+   "name": "柘荣县",
+   "city": "宁德市",
+   "province": "福建省",
+   "region": "闽东北",
+   "hazard": 25.3,
+   "survival": 76,
+   "recommend": 75,
+   "terrain": 100,
+   "pop": 92989,
+   "plan": {
+    "primary": "柘荣县",
+    "backup": "泰顺县",
+    "mode": "hold"
+   }
+  },
+  {
+   "code": "360424",
+   "name": "修水县",
+   "city": "九江市",
+   "province": "江西省",
+   "region": "赣北",
+   "hazard": 2.7,
+   "survival": 78,
+   "recommend": 89,
+   "terrain": 82,
+   "pop": 710620,
+   "plan": {
+    "primary": "修水县",
+    "backup": "铜鼓县",
+    "mode": "hold"
+   }
+  },
+  {
+   "code": "360724",
+   "name": "上犹县",
+   "city": "赣州市",
+   "province": "江西省",
+   "region": "赣南",
+   "hazard": 15.1,
+   "survival": 73,
+   "recommend": 80,
+   "terrain": 83,
+   "pop": 268557,
+   "plan": {
+    "primary": "上犹县",
+    "backup": "遂川县",
+    "mode": "hold"
+   }
+  },
+  {
+   "code": "360725",
+   "name": "崇义县",
+   "city": "赣州市",
+   "province": "江西省",
+   "region": "赣南",
+   "hazard": 7.7,
+   "survival": 80,
+   "recommend": 87,
+   "terrain": 94,
+   "pop": 177831,
+   "plan": {
+    "primary": "崇义县",
+    "backup": "遂川县",
+    "mode": "hold"
+   }
+  },
+  {
+   "code": "360734",
+   "name": "寻乌县",
+   "city": "赣州市",
+   "province": "江西省",
+   "region": "赣南",
+   "hazard": 6.9,
+   "survival": 81,
+   "recommend": 88,
+   "terrain": 96,
+   "pop": 280219,
+   "plan": {
+    "primary": "寻乌县",
+    "backup": "武平县",
+    "mode": "hold"
+   }
+  },
+  {
+   "code": "360827",
+   "name": "遂川县",
+   "city": "吉安市",
+   "province": "江西省",
+   "region": "赣南",
+   "hazard": 9,
+   "survival": 76,
+   "recommend": 85,
+   "terrain": 85,
+   "pop": 512109,
+   "plan": {
+    "primary": "遂川县",
+    "backup": "上犹县",
+    "mode": "hold"
+   }
+  },
+  {
+   "code": "360881",
+   "name": "井冈山市",
+   "city": "吉安市",
+   "province": "江西省",
+   "region": "赣南",
+   "hazard": 7.4,
+   "survival": 80,
+   "recommend": 87,
+   "terrain": 92,
+   "pop": 155976,
+   "plan": {
+    "primary": "井冈山市",
+    "backup": "莲花县",
+    "mode": "hold"
+   }
+  },
+  {
+   "code": "360926",
+   "name": "铜鼓县",
+   "city": "宜春市",
+   "province": "江西省",
+   "region": "赣西",
+   "hazard": 3.1,
+   "survival": 83,
+   "recommend": 91,
+   "terrain": 97,
+   "pop": 116418,
+   "plan": {
+    "primary": "铜鼓县",
+    "backup": "修水县",
+    "mode": "hold"
+   }
+  },
+  {
+   "code": "361022",
+   "name": "黎川县",
+   "city": "抚州市",
+   "province": "江西省",
+   "region": "赣东",
+   "hazard": 10.4,
+   "survival": 76,
+   "recommend": 84,
+   "terrain": 80,
+   "pop": 205205,
+   "plan": {
+    "primary": "黎川县",
+    "backup": "光泽县",
+    "mode": "hold"
+   }
+  },
+  {
+   "code": "361028",
+   "name": "资溪县",
+   "city": "抚州市",
+   "province": "江西省",
+   "region": "赣东",
+   "hazard": 23.4,
+   "survival": 77,
+   "recommend": 77,
+   "terrain": 95,
+   "pop": 95826,
+   "plan": {
+    "primary": "资溪县",
+    "backup": "光泽县",
+    "mode": "hold"
+   }
+  },
+  {
+   "code": "361130",
+   "name": "婺源县",
+   "city": "上饶市",
+   "province": "江西省",
+   "region": "赣东北",
+   "hazard": 14,
+   "survival": 77,
+   "recommend": 82,
+   "terrain": 80,
+   "pop": 314985,
+   "plan": {
+    "primary": "婺源县",
+    "backup": "开化县",
+    "mode": "hold"
+   }
+  },
+  {
+   "code": "370323",
+   "name": "沂源县",
+   "city": "淄博市",
+   "province": "山东省",
+   "region": "鲁中",
+   "hazard": 18.3,
+   "survival": 75,
+   "recommend": 79,
+   "terrain": 93,
+   "pop": 515058,
+   "plan": {
+    "primary": "沂源县",
+    "backup": "蒙阴县",
+    "mode": "hold"
+   }
+  },
+  {
+   "code": "370406",
+   "name": "山亭区",
+   "city": "枣庄市",
+   "province": "山东省",
+   "region": "鲁南",
+   "hazard": 19.7,
+   "survival": 72,
+   "recommend": 77,
+   "terrain": 79,
+   "pop": 406722,
+   "plan": {
+    "primary": "山亭区",
+    "backup": "平邑县",
+    "mode": "hold"
+   }
+  },
+  {
+   "code": "370686",
+   "name": "栖霞市",
+   "city": "烟台市",
+   "province": "山东省",
+   "region": "胶东",
+   "hazard": 34.5,
+   "survival": 67,
+   "recommend": 66,
+   "terrain": 79,
+   "pop": 435405,
+   "plan": {
+    "primary": "沂源县",
+    "backup": "五莲县",
+    "mode": "evacuate"
+   }
+  },
+  {
+   "code": "370724",
+   "name": "临朐县",
+   "city": "潍坊市",
+   "province": "山东省",
+   "region": "胶东",
+   "hazard": 41,
+   "survival": 62,
+   "recommend": 60,
+   "terrain": 77,
+   "pop": 806314,
+   "plan": {
+    "primary": "沂源县",
+    "backup": "淄川区",
+    "mode": "evacuate"
+   }
+  },
+  {
+   "code": "371083",
+   "name": "乳山市",
+   "city": "威海市",
+   "province": "山东省",
+   "region": "胶东",
+   "hazard": 35.3,
+   "survival": 54,
+   "recommend": 59,
+   "terrain": 36,
+   "pop": 464078,
+   "plan": {
+    "primary": "沂源县",
+    "backup": "莱州市",
+    "mode": "evacuate"
+   }
+  },
+  {
+   "code": "371121",
+   "name": "五莲县",
+   "city": "日照市",
+   "province": "山东省",
+   "region": "胶东",
+   "hazard": 26.5,
+   "survival": 66,
+   "recommend": 70,
+   "terrain": 68,
+   "pop": 443600,
+   "plan": {
+    "primary": "沂源县",
+    "backup": "沂水县",
+    "mode": "evacuate"
+   }
+  },
+  {
+   "code": "371323",
+   "name": "沂水县",
+   "city": "临沂市",
+   "province": "山东省",
+   "region": "鲁南",
+   "hazard": 12.7,
+   "survival": 60,
+   "recommend": 75,
+   "terrain": 35,
+   "pop": 967570,
+   "plan": {
+    "primary": "沂水县",
+    "backup": "五莲县",
+    "mode": "hold"
+   }
+  },
+  {
+   "code": "371328",
+   "name": "蒙阴县",
+   "city": "临沂市",
+   "province": "山东省",
+   "region": "鲁南",
+   "hazard": 20.6,
+   "survival": 73,
+   "recommend": 77,
+   "terrain": 86,
+   "pop": 485252,
+   "plan": {
+    "primary": "蒙阴县",
+    "backup": "沂源县",
+    "mode": "hold"
+   }
+  }
+ ]
+}

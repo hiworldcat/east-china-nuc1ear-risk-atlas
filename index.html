@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>华东 · 核战避难风险图 | East China Nuclear Risk Atlas</title>
+<meta name="description" content="基于公开地理、工业布局与风向的华东七省 625 个县级单元核战风险桌面推演。">
+<link rel="stylesheet" href="assets/leaflet/leaflet.css">
+<link rel="stylesheet" href="assets/app.css">
+</head>
+<body>
+<div id="boot">
+  <div class="boot-mark">☢</div>
+  <div class="boot-title">EAST CHINA RISK ATLAS</div>
+  <div class="boot-sub">正在载入 625 个县级单元…</div>
+  <div class="boot-bar"><i></i></div>
+</div>
+
+<div id="app" hidden>
+  <header id="topbar">
+    <div class="brand">
+      <div class="brand-mark">☢</div>
+      <div class="brand-text">
+        <h1>华东 · 核战避难风险图</h1>
+        <p>EAST CHINA NUCLEAR RISK ATLAS <span>/</span> PUBLIC DATA SIMULATION</p>
+      </div>
+    </div>
+
+    <div class="scenario-switch" role="tablist" aria-label="打击情景">
+      <button data-scenario="full" class="active" role="tab">全面交换</button>
+      <button data-scenario="limited" role="tab">有限打击</button>
+      <button data-scenario="edge" role="tab">边缘波及</button>
+      <span class="switch-glow"></span>
+    </div>
+
+    <div class="top-actions">
+      <label class="select-wrap season-wrap" title="盛行风季，决定放射性沉降方向">
+        <span class="select-label">风季</span>
+        <select id="season-select">
+          <option value="winter">冬季 · 西北风</option>
+          <option value="summer">夏季 · 东南风</option>
+          <option value="shoulder">春秋 · 东北风</option>
+        </select>
+      </label>
+      <label class="select-wrap" title="地图着色指标">
+        <span class="select-label">图层</span>
+        <select id="metric-select">
+          <option value="hazard">危险度</option>
+          <option value="survival">生存条件</option>
+          <option value="recommend">综合推荐</option>
+          <option value="reach">可达推荐</option>
+        </select>
+      </label>
+      <button class="icon-btn" id="btn-search" title="搜索区县 / 城市 / 目标">⌕</button>
+      <button class="text-btn" id="btn-rank">数据库</button>
+      <button class="icon-btn" id="btn-about" title="方法与说明">i</button>
+    </div>
+  </header>
+
+  <main id="stage">
+    <div id="map" aria-label="华东县级风险地图"></div>
+
+    <aside id="left-panel" class="panel">
+      <div class="panel-head">
+        <span class="eyebrow">SITUATION / 态势</span>
+        <button class="panel-collapse" id="btn-left-collapse" title="收起面板">‹</button>
+      </div>
+
+      <div class="origin-box">
+        <label for="origin-select">我从哪里出发</label>
+        <div class="origin-row">
+          <select id="origin-select">
+            <option value="上海">上海 · 人民广场</option>
+            <option value="南京">南京 · 新街口</option>
+            <option value="杭州">杭州 · 武林广场</option>
+            <option value="合肥">合肥 · 市府广场</option>
+            <option value="福州">福州 · 五一广场</option>
+            <option value="南昌">南昌 · 八一广场</option>
+            <option value="济南">济南 · 泉城广场</option>
+            <option value="徐州">徐州 · 彭城广场</option>
+            <option value="宁波">宁波 · 三江口</option>
+            <option value="青岛">青岛 · 五四广场</option>
+            <option value="厦门">厦门 · 中山路</option>
+            <option value="温州">温州 · 世纪广场</option>
+          </select>
+          <button class="locate-btn" id="btn-locate" title="使用浏览器定位">◎</button>
+        </div>
+        <p class="origin-hint" id="origin-hint">按当前位置计算“可达推荐”与撤离走廊</p>
+      </div>
+
+      <div class="stat-grid">
+        <div class="stat"><b id="stat-extreme">—</b><span>极高危区县</span></div>
+        <div class="stat"><b id="stat-safe">—</b><span>低危区县</span></div>
+        <div class="stat"><b id="stat-haven">—</b><span>山区节点</span></div>
+        <div class="stat"><b id="stat-wind">—</b><span>盛行风</span></div>
+      </div>
+
+      <div class="section">
+        <div class="section-title"><span>着色图例</span><em id="legend-note">0–100 相对指数</em></div>
+        <div id="legend" class="legend"></div>
+      </div>
+
+      <div class="section">
+        <div class="section-title"><span>从出发地看 · 推荐目的地</span><em>TOP 6</em></div>
+        <div id="origin-top" class="dest-list"></div>
+      </div>
+
+      <div class="section">
+        <div class="section-title"><span>图层</span><em>LAYERS</em></div>
+        <div class="layer-list">
+          <label class="layer" title="缩放地图会逐步显示更多目标；化工/工厂在 7 级后展开"><input type="checkbox" id="layer-targets" checked><i></i><span>打击目标</span><em id="count-targets"></em></label>
+          <label class="layer"><input type="checkbox" id="layer-plume" checked><i></i><span>沉降热区</span><em>模型</em></label>
+          <label class="layer"><input type="checkbox" id="layer-water" checked><i></i><span>河流与湖泊</span><em>41 / 19</em></label>
+          <label class="layer"><input type="checkbox" id="layer-expressway" checked><i></i><span>高速公路</span><em>15</em></label>
+          <label class="layer"><input type="checkbox" id="layer-national" checked><i></i><span>国道</span><em>8</em></label>
+          <label class="layer"><input type="checkbox" id="layer-rings"><i></i><span>冲击波环</span><em>5 / 1 psi</em></label>
+          <label class="layer"><input type="checkbox" id="layer-havens" checked><i></i><span>避难节点</span><em>50</em></label>
+          <label class="layer"><input type="checkbox" id="layer-labels" checked><i></i><span>地名标注</span><em>AUTO</em></label>
+        </div>
+        <div class="basemap-row">
+          <span>底图</span>
+          <select id="basemap-select">
+            <option value="dark">深色底图</option>
+            <option value="sat">卫星影像</option>
+            <option value="none">无底图</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="wind-box">
+        <div class="compass" id="compass">
+          <div class="compass-ring"></div>
+          <div class="compass-arrow" id="compass-arrow"></div>
+          <span class="n">N</span><span class="e">E</span><span class="s">S</span><span class="w">W</span>
+        </div>
+        <div class="wind-copy">
+          <b id="wind-title">冬季 · 西北风</b>
+          <p id="wind-desc">沉降主轴向东南，压向苏南、上海、浙北</p>
+        </div>
+      </div>
+
+      <div class="panel-foot">
+        <span>625 县 · 7 省</span>
+        <span>DATA v1.0</span>
+      </div>
+    </aside>
+    <button class="left-reopen" id="left-reopen" title="展开面板">›</button>
+
+    <aside id="detail-panel" class="panel detail-panel">
+      <div class="detail-empty" id="detail-empty">
+        <div class="empty-kicker">READY / 选择区县</div>
+        <div class="empty-icon">⊕</div>
+        <h3>点击任意区县</h3>
+        <p>查看危险度构成、附近目标、生存条件与撤离方案。</p>
+        <div class="empty-links">
+          <button data-fly="上海">上海</button>
+          <button data-fly="黄山">黄山</button>
+          <button data-fly="丽水">丽水</button>
+          <button data-fly="舟山">舟山</button>
+        </div>
+        <div class="empty-routes">
+          <div class="empty-routes-head"><span>从出发地看 · 三条走廊</span><em>LIVE</em></div>
+          <div id="empty-routes"></div>
+        </div>
+        <div class="empty-note">危险度是相对指数，不是辐射剂量或伤亡概率。全面核交换下没有绝对安全之地。</div>
+      </div>
+      <div id="detail-content" hidden></div>
+    </aside>
+
+    <div id="map-hud">
+      <div class="hud-left">
+        <span class="live-dot"></span>
+        <span id="hud-scenario">全面核交换</span>
+        <span class="hud-sep">/</span>
+        <span id="hud-season">冬季西北风</span>
+      </div>
+      <div class="hud-right">
+        <span id="hud-count">625 县</span>
+        <span class="hud-sep">·</span>
+        <span>桌面推演，非情报</span>
+      </div>
+    </div>
+
+    <div id="map-tools">
+      <button id="zoom-in" title="放大">+</button>
+      <button id="zoom-out" title="缩小">−</button>
+      <button id="btn-reset" title="回到全图">⌂</button>
+    </div>
+
+    <div id="mobile-bar">
+      <button id="btn-mobile-season">西北风</button>
+      <button id="btn-mobile-layers">图层</button>
+      <button id="btn-mobile-rank">数据库</button>
+      <button id="btn-mobile-about">说明</button>
+    </div>
+  </main>
+
+  <div id="search-overlay" class="overlay" hidden>
+    <div class="search-box">
+      <input id="search-input" type="search" placeholder="搜索区县、城市、目标…" autocomplete="off">
+      <button id="search-close">ESC</button>
+    </div>
+    <div id="search-results" class="search-results"></div>
+  </div>
+
+  <div id="modal-rank" class="modal" hidden>
+    <div class="modal-card rank-card">
+      <div class="modal-head">
+        <div>
+          <span class="eyebrow">DATABASE / 数据库</span>
+          <h2 id="rank-title">华东县级风险总表</h2>
+        </div>
+        <button class="modal-close" data-close="modal-rank">✕</button>
+      </div>
+      <div class="rank-toolbar">
+        <input id="rank-search" type="search" placeholder="筛选区县 / 城市 / 省…">
+        <select id="rank-level"><option value="county">按区县</option><option value="city">按城市</option></select>
+        <select id="rank-province"><option value="">全部省份</option></select>
+        <select id="rank-sort">
+          <option value="hazard-desc">危险度 高→低</option>
+          <option value="recommend-desc">推荐度 高→低</option>
+          <option value="survival-desc">生存条件 高→低</option>
+          <option value="reach-desc">可达推荐 高→低</option>
+          <option value="name-asc">按名称</option>
+        </select>
+        <button class="text-btn" id="btn-export">导出 CSV</button>
+      </div>
+      <div class="rank-table-wrap">
+        <table class="rank-table">
+          <thead><tr><th>#</th><th id="th-name">区县</th><th id="th-city">城市</th><th id="th-hazard">危险度</th><th>生存</th><th>推荐</th><th>等级</th><th>主方案</th></tr></thead>
+          <tbody id="rank-body"></tbody>
+        </table>
+      </div>
+      <div class="rank-foot" id="rank-foot"></div>
+    </div>
+  </div>
+
+  <div id="modal-about" class="modal" hidden>
+    <div class="modal-card about-card">
+      <div class="modal-head">
+        <div>
+          <span class="eyebrow">METHOD / 方法与边界</span>
+          <h2>这是一张推演图，不是打击清单</h2>
+        </div>
+        <button class="modal-close" data-close="modal-about">✕</button>
+      </div>
+      <div class="about-body">
+        <div class="disclaimer">
+          <b>先读这一条。</b>真实打击清单属最高机密。本图只基于公开地理、工业布局、人口、风向和军事地理常识做桌面推演，<b>不代表任何真实计划、情报结论或官方判断</b>。全面核交换下，长三角是全球目标最密集的区域之一，<b>不存在真正安全的地方</b>；本图只在“有限打击、边缘波及、战后头几个月求生”这三种情境下有意义。战时请以当地人防部门指令为准。
+        </div>
+
+        <h3>1. 危险度怎么算</h3>
+        <p>每个区县取驻地坐标，对每个公开目标计算三项威胁，再按权重合成 0–100 的相对指数：</p>
+        <div class="formula">
+          <div><b>54%</b><span>直接打击 / 冲击波</span><em>按假设当量 150 kt 的 5 psi 与 1 psi 半径衰减</em></div>
+          <div><b>32%</b><span>放射性沉降</span><em>按下风向锥形羽流、横风宽度与距离衰减</em></div>
+          <div><b>14%</b><span>次生灾害</span><em>石化/化工毒云、核电污染、坝下洪水、港口与工厂火灾</em></div>
+        </div>
+        <p class="small">危险度是相对指数，不是辐射剂量，也不是伤亡概率。它回答的是“哪里更可能被波及、波及后更麻烦”，而不是“哪里绝对安全”。县级工业产值没有统一公开口径，模型用“目标清单 + 人口密度”作为目标价值代理；它不是工业产值排名。</p>
+
+        <h3>2. 生存条件与推荐度</h3>
+        <div class="formula">
+          <div><b>34%</b><span>低危险度</span><em>危险度越低越好</em></div>
+          <div><b>26%</b><span>地形遮蔽</span><em>SRTM 90 m 采样：平均海拔 + 17 点起伏</em></div>
+          <div><b>22%</b><span>自持力</span><em>人口密度、农业基础、水源与小水电潜力</em></div>
+          <div><b>10%</b><span>可达性</span><em>距上海的公路时间估算</em></div>
+          <div><b>8%</b><span>公共服务</span><em>县城/县级市/市辖区的医疗与接待能力代理</em></div>
+        </div>
+        <p>综合推荐 = 0.58 × 安全 + 0.42 × 生存条件 − 平原惩罚。平原惩罚用于纠正“离目标远但无地形遮蔽”的误导。</p>
+        <p><b>可达推荐</b>是在综合推荐上再扣除从所选出发地到该县的距离与时间成本。它回答“我现在从这里出发，现实中最值得去哪儿”。</p>
+
+        <h3>3. 三种情景</h3>
+        <ul>
+          <li><b>全面交换</b>：所有目标计入，适合看最坏情况。</li>
+          <li><b>有限打击</b>：只计核设施、军港、指挥、机场、港口、铁路、钢铁，且降低民用机场与港口的权重。</li>
+          <li><b>边缘波及</b>：假定主要爆心在邻近区域，只计算沉降、化工与水利次生灾害，适合看“没直接被炸但被波及”的情形。</li>
+        </ul>
+
+        <h3>4. 风向假设</h3>
+        <p>华东冬季盛行西北风，夏季东南风，春秋多东北风。图中的沉降热区会随风季切换而重算。真实核爆后局地风、对流雨和地形会显著改变沉降，本图只给大方向。</p>
+
+        <h3>5. 数据来源</h3>
+        <ul>
+          <li>阿里云 DataV.GeoAtlas 行政区划边界（2024）——625 个县级单元。</li>
+          <li>第七次全国人口普查分县资料（2020）——常住人口；部分新设/合并区按公开口径估算。</li>
+          <li>OpenTopoData / SRTM 90 m——每县 17 点地形采样。</li>
+          <li>公开报道的核电、港口、钢铁、石化、化工园区、工厂、机场、水利、铁路编组设施位置（坐标约 1–5 km 误差）。</li>
+          <li>化工园区/化工企业 107 个（⚗）、大型工厂 28 个（▤），缩放地图后按级别逐步显示。</li>
+          <li>Natural Earth 10m 河流/湖泊；OSRM / OpenStreetMap 公路路径（作走廊示意，非官方线位）。</li>
+          <li>公开气象常识与公开的民防、核防护常识。</li>
+        </ul>
+
+        <h3>6. 分区域速查</h3>
+        <div class="region-guide">
+          <div><b>上海主城 / 浦东</b><span>战前 48–72 小时向皖南（黄山—绩溪—泾县）或浙西南；警报发布后原地进入人防，不要上高速。</span></div>
+          <div><b>上海郊区 / 崇明</b><span>青浦西部只适合短时掩蔽；崇明长江隧桥是单点瓶颈，不建议战时离岛。</span></div>
+          <div><b>苏南（苏锡常宁镇）</b><span>向皖南或浙西南；避开沪宁走廊、沿江重化带。南京可向皖西大别山。</span></div>
+          <div><b>苏中 / 苏北</b><span>向沂蒙山或大别山；盐城沿海要防台风与平原沉降；洪泽湖坝下不要停留。</span></div>
+          <div><b>浙北（杭嘉湖）</b><span>向皖南或浙西南；避开秦山 50 km、杭州湾下风向与嘉兴化工园区。</span></div>
+          <div><b>浙东沿海（甬台温舟）</b><span>向浙西南或闽北；避开北仑、镇海、三门、三澳；海岛不作为首选。</span></div>
+          <div><b>皖南 / 皖西</b><span>本地就是目的地；选山腰台地，避开新安江、陈村、港口湾等坝下河谷。</span></div>
+          <div><b>皖中 / 皖北</b><span>向大别山或皖南；避开合肥、马鞍山、铜陵、芜湖的沿江工业带。</span></div>
+          <div><b>闽东北 / 闽南</b><span>向闽西北、武夷山；避开沿海港口与福清、宁德、漳州核电下风向。</span></div>
+          <div><b>赣北 / 赣西 / 赣南</b><span>向铜鼓、修水、资溪、武夷山；避开南昌、九江、向塘枢纽。</span></div>
+          <div><b>鲁中 / 鲁南 / 胶东</b><span>向沂蒙山、鲁山、五莲；避开济南、青岛、港口群与胜利油田。</span></div>
+        </div>
+        <p class="small">这些只是一句话方向，具体到县请点击地图查看“撤离方案”和“可达推荐”。</p>
+
+        <h3>7. 不能做什么</h3>
+        <ul>
+          <li>不能预测真实打击顺序、当量、空爆/地爆、拦截率与政治决策。</li>
+          <li>不能给出个人辐射剂量、伤亡概率或“绝对安全”结论。</li>
+          <li>不能替代当地人防工程清单、疏散预案与官方警报。</li>
+          <li>不能把“危险度低”理解为“不会受影响”。战后真正的杀手往往是水源污染、疫病、饥荒与秩序崩溃。</li>
+        </ul>
+
+        <div class="about-foot">
+          <span>MODEL v1.0 · 2026-10</span>
+          <span>建议与纠错：以公开数据为准，欢迎指出坐标与口径错误。</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="assets/leaflet/leaflet.js"></script>
+<script src="assets/risk.js"></script>
+<script src="data/context.js"></script>
+<script src="data/hydro.js"></script>
+<script src="data/roads.js"></script>
+<script src="data/database.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>
