@@ -113,6 +113,7 @@
           <label class="layer"><input type="checkbox" id="layer-water" checked><i></i><span>河流与湖泊</span><em>41 / 19</em></label>
           <label class="layer"><input type="checkbox" id="layer-expressway" checked><i></i><span>高速公路</span><em>15</em></label>
           <label class="layer"><input type="checkbox" id="layer-national" checked><i></i><span>国道</span><em>8</em></label>
+          <label class="layer" title="本层默认不含任何数据；可由使用者自行接入，不进入打击评分"><input type="checkbox" id="layer-military"><i></i><span>军事背景（自定义）</span><em id="count-military">空</em></label>
           <label class="layer"><input type="checkbox" id="layer-rings"><i></i><span>冲击波环</span><em>5 / 1 psi</em></label>
           <label class="layer"><input type="checkbox" id="layer-havens" checked><i></i><span>避难节点</span><em>50</em></label>
           <label class="layer"><input type="checkbox" id="layer-labels" checked><i></i><span>地名标注</span><em>AUTO</em></label>
@@ -235,6 +236,36 @@
     </div>
   </div>
 
+  <div id="modal-military" class="modal" hidden>
+    <div class="modal-card crab-card">
+      <button class="modal-close crab-close" data-close="modal-military">✕</button>
+
+      <div class="crab-step" id="military-step1">
+        <img class="crab-star" src="assets/img/military-star.png" alt="八一军徽">
+        <div class="crab-body">
+          <p class="crab-line">你想帮CIA偷走美味蟹堡吗？</p>
+          <p class="crab-sub" id="crab-status">本层当前没有任何数据，打开开关只会看到这句话。接入方式见 data/military.js 顶部的结构说明。</p>
+        </div>
+        <div class="crab-actions">
+          <button id="btn-military-off">算了，退出</button>
+          <button id="btn-military-continue" class="crab-primary">哦不，我只是想带回家去吃</button>
+        </div>
+      </div>
+
+      <div class="crab-step" id="military-step2" hidden>
+        <img class="crab-shot" src="assets/img/patty-scene.png" alt="我只是想带回家去吃">
+        <div class="crab-body">
+          <p class="crab-line crab-echo">“哦不，我只是想带回家去吃”</p>
+          <p class="crab-sub">声音都学上了。</p>
+        </div>
+        <div class="crab-actions">
+          <button id="btn-military-off2">算了，退出</button>
+          <button id="btn-military-silent" class="crab-primary">……</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div id="modal-about" class="modal" hidden>
     <div class="modal-card about-card">
       <div class="modal-head">
@@ -287,6 +318,7 @@
           <li>公开报道的核电、港口、钢铁、石化、化工园区、工厂、机场、水利、铁路编组设施位置（坐标约 1–5 km 误差）。</li>
           <li>化工园区/化工企业 107 个（⚗）、大型工厂 28 个（▤），缩放地图后按级别逐步显示。</li>
           <li>Natural Earth 10m 河流/湖泊；OSRM / OpenStreetMap 公路路径（作走廊示意，非官方线位）。</li>
+          <li>军事背景层为自定义接口：默认不含任何数据，使用者在 <code>data/military.js</code> 中接入自有数据后即可显示，坐标原样使用、不做模糊化，不进入评分。</li>
           <li>公开气象常识与公开的民防、核防护常识。</li>
         </ul>
 
@@ -310,6 +342,7 @@
         <ul>
           <li>不能预测真实打击顺序、当量、空爆/地爆、拦截率与政治决策。</li>
           <li>不能给出个人辐射剂量、伤亡概率或“绝对安全”结论。</li>
+          <li>不内置任何军事设施数据，也不提供坐标库；该层只是留给使用者接入自有数据的空白接口。</li>
           <li>不能替代当地人防工程清单、疏散预案与官方警报。</li>
           <li>不能把“危险度低”理解为“不会受影响”。战后真正的杀手往往是水源污染、疫病、饥荒与秩序崩溃。</li>
         </ul>
@@ -328,6 +361,7 @@
 <script src="data/context.js"></script>
 <script src="data/hydro.js"></script>
 <script src="data/roads.js"></script>
+<script src="data/military.js"></script>
 <script src="data/database.js"></script>
 <script src="assets/app.js"></script>
 </body>

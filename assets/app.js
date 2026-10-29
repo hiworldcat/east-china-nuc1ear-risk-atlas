@@ -38,7 +38,7 @@
     origin: { name: '上海', center: ORIGINS['上海'] },
     selected: null,
     routeMode: 'local',
-    layers: { targets: true, plume: true, water: true, expressway: true, national: true, rings: false, havens: true, labels: true },
+    layers: { targets: true, plume: true, water: true, expressway: true, national: true, military: false, rings: false, havens: true, labels: true },
     basemap: 'dark',
     rankSort: 'hazard-desc',
     rankProvince: '',
@@ -76,6 +76,9 @@
   let expresswayGroup;
   let nationalGroup;
   let roadLabelGroup;
+  let militaryGroup;
+  let militaryLabelGroup;
+  let militaryData = null;
   let originMarker;
   let targetMarkers = {};
   let havenMarkers = [];
@@ -265,6 +268,7 @@
     map.createPane('countyPane').style.zIndex = 400;
     map.createPane('waterPane').style.zIndex = 430;
     map.createPane('roadPane').style.zIndex = 435;
+    map.createPane('militaryPane').style.zIndex = 438;
     map.createPane('plumePane').style.zIndex = 450;
     map.createPane('ringPane').style.zIndex = 460;
     map.createPane('routePane').style.zIndex = 620;
@@ -293,6 +297,7 @@
     initPlume();
     initHydro();
     initRoads();
+    initMilitary();
     initTargets();
     initHavens();
     initOriginMarker();
@@ -301,7 +306,7 @@
     routeGroup = L.layerGroup().addTo(map);
     ringGroup = L.layerGroup();
 
-    map.on('zoomend', () => { rebuildTargets(); rebuildHavens(); rebuildWaterLabels(); updateWaterStyle(); rebuildRoadLabels(); updateRoadVisibility(); updateLabels(); updateContextLabels(); });
+    map.on('zoomend', () => { rebuildTargets(); rebuildHavens(); rebuildWaterLabels(); updateWaterStyle(); rebuildRoadLabels(); updateRoadVisibility(); rebuildMilitaryLabels(); updateLabels(); updateContextLabels(); });
     map.on('click', () => {
       if (window.innerWidth <= 900) closeLeftPanel();
     });
@@ -495,6 +500,116 @@
           pane: 'labelPane', interactive: false, keyboard: false, zIndexOffset: 100000,
         }).addTo(roadLabelGroup);
       }
+    }
+  }
+
+  /* ---------- 军事背景层（空接口，默认无数据） ---------- */
+  const MILITARY_COLOR = '#e0a06a';
+
+  function militaryItems(d) {
+    const out = [];
+    if (!d) return out;
+    for (const z of Array.isArray(d.zones) ? d.zones : []) {
+      if (!Array.isArray(z.center) || z.center.length !== 2) continue;
+      out.push({ ...z, kind: 'zone', color: z.color || MILITARY_COLOR });
+    }
+    for (const p of Array.isArray(d.points) ? d.points : []) {
+      if (typeof p.lat !== 'number' || typeof p.lng !== 'number') continue;
+      out.push({ ...p, kind: 'point', color: p.color || MILITARY_COLOR });
+    }
+    return out;
+  }
+
+  function militaryTooltip(it) {
+    const tags = Array.isArray(it.tags) ? it.tags.filter(Boolean) : [];
+    let html = `<b>${esc(it.label || '未命名')}</b>`;
+    if (tags.length) html += `<br><span>${esc(tags.join(' / '))}</span>`;
+    if (it.kind === 'zone') html += `<br><span>范围半径约 ${Number(it.radiusKm) || 0} km</span>`;
+    if (it.note) html += `<br><span>${esc(it.note)}</span>`;
+    return html;
+  }
+
+  function initMilitary() {
+    militaryData = window.NUMA_MILITARY || null;
+    const items = militaryItems(militaryData);
+    militaryGroup = L.layerGroup();
+    militaryLabelGroup = L.layerGroup().addTo(map);
+
+    const badge = $('#count-military');
+    if (badge) badge.textContent = items.length ? String(items.length) : '空';
+
+    for (const it of items) {
+      const tip = militaryTooltip(it);
+      if (it.kind === 'zone') {
+        L.circle(ll(it.center), {
+          radius: (Number(it.radiusKm) || 0) * 1000,
+          pane: 'militaryPane',
+          color: it.color,
+          weight: 1.35,
+          opacity: 0.78,
+          dashArray: '5 6',
+          fillColor: it.color,
+          fillOpacity: 0.08,
+          interactive: true,
+        }).bindTooltip(tip, { className: 'nuke-tip', sticky: true }).addTo(militaryGroup);
+      } else {
+        L.circleMarker([it.lat, it.lng], {
+          radius: 5,
+          pane: 'militaryPane',
+          color: it.color,
+          weight: 1.4,
+          fillColor: it.color,
+          fillOpacity: 0.5,
+          interactive: true,
+        }).bindTooltip(tip, { className: 'nuke-tip', sticky: true }).addTo(militaryGroup);
+      }
+    }
+
+    if (!items.length && state.layers.military) {
+      state.layers.military = false;
+      const cb = $('#layer-military');
+      if (cb) cb.checked = false;
+    } else if (items.length && state.layers.military) {
+      militaryGroup.addTo(map);
+    }
+
+    updateMilitaryStatus(items);
+    rebuildMilitaryLabels();
+  }
+
+  function showMilitaryStep(n) {
+    const s1 = $('#military-step1');
+    const s2 = $('#military-step2');
+    if (s1) s1.hidden = n !== 1;
+    if (s2) s2.hidden = n !== 2;
+  }
+
+  function updateMilitaryStatus(items) {
+    const el = $('#crab-status');
+    if (!el) return;
+    const zones = items.filter((i) => i.kind === 'zone').length;
+    const points = items.filter((i) => i.kind === 'point').length;
+    el.textContent = items.length
+      ? `已接入 ${items.length} 条（范围 ${zones} · 点 ${points}）。本层只做叠加显示，不进入危险度评分。`
+      : '本层当前没有任何数据，打开开关只会看到这句话。接入方式见 data/military.js 顶部的结构说明。';
+  }
+
+  function rebuildMilitaryLabels() {
+    if (!militaryLabelGroup) return;
+    militaryLabelGroup.clearLayers();
+    if (!state.layers.military || map.getZoom() < 6.9) return;
+    for (const it of militaryItems(militaryData)) {
+      if (it.kind !== 'zone') continue;
+      const tag = Array.isArray(it.tags) && it.tags[0] ? `<span>${esc(it.tags[0])}</span>` : '';
+      L.marker(ll(it.center), {
+        icon: L.divIcon({
+          className: 'military-label',
+          html: `<b>${esc(it.label || '未命名')}</b>${tag}`,
+          iconSize: [150, 17],
+          iconAnchor: [75, 8],
+        }),
+        pane: 'labelPane', interactive: false, keyboard: false, zIndexOffset: 100000,
+      }).addTo(militaryLabelGroup);
     }
   }
 
@@ -1079,6 +1194,22 @@
     $('#layer-water').addEventListener('change', (e) => setLayer('water', e.target.checked));
     $('#layer-expressway').addEventListener('change', (e) => setLayer('expressway', e.target.checked));
     $('#layer-national').addEventListener('change', (e) => setLayer('national', e.target.checked));
+    $('#layer-military').addEventListener('change', (e) => {
+      setLayer('military', e.target.checked);
+      if (!e.target.checked) return;
+      updateMilitaryStatus(militaryItems(militaryData));
+      showMilitaryStep(1);
+      openModal('modal-military');
+    });
+    const quitMilitary = () => {
+      closeModal('modal-military');
+      $('#layer-military').checked = false;
+      setLayer('military', false);
+    };
+    $('#btn-military-off').addEventListener('click', quitMilitary);
+    $('#btn-military-off2').addEventListener('click', quitMilitary);
+    $('#btn-military-continue').addEventListener('click', () => showMilitaryStep(2));
+    $('#btn-military-silent').addEventListener('click', () => closeModal('modal-military'));
     $('#layer-rings').addEventListener('change', (e) => setLayer('rings', e.target.checked));
     $('#layer-havens').addEventListener('change', (e) => setLayer('havens', e.target.checked));
     $('#layer-labels').addEventListener('change', (e) => setLayer('labels', e.target.checked));
@@ -1140,6 +1271,10 @@
       if (on) nationalGroup.addTo(map); else map.removeLayer(nationalGroup);
       updateRoadVisibility();
       rebuildRoadLabels();
+    }
+    if (name === 'military') {
+      if (on) militaryGroup.addTo(map); else map.removeLayer(militaryGroup);
+      rebuildMilitaryLabels();
     }
     if (name === 'rings') { if (on) { renderRings(); ringGroup.addTo(map); } else map.removeLayer(ringGroup); }
     if (name === 'labels') updateLabels();
