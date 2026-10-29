@@ -92,7 +92,7 @@ git commit -m "feat(ui): 实现可交互风险地图、搜索、详情与数据�
 git add scripts/build_hydro.mjs scripts/fetch_roads.mjs
 git add data/hydro.js data/roads.js
 git add data/raw/ne_rivers.geojson data/raw/ne_lakes.geojson
-git commit -m "feat(layers): 增加主要河流湖泊、高速与国道图层"
+git commit -m "feat(layers): 增加河流湖泊与高速国道走廊"
 ```
 
 ## 8. 文档、预览与启动脚本

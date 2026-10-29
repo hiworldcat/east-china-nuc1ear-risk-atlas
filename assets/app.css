@@ -571,6 +571,43 @@ button { cursor: pointer; }
   box-shadow: 0 1px 5px rgba(0,0,0,.5);
 }
 .road-label.national-label { color: #d2e3a0; border-color: rgba(167,187,114,.5); background: rgba(5,9,11,.82); }
+.military-label {
+  font-family: var(--font); font-size: 9px; line-height: 17px; text-align: center;
+  color: #d8a06d; background: rgba(8,9,10,.8); border: 1px dashed rgba(201,139,94,.5);
+  white-space: nowrap; pointer-events: none; border-radius: 2px;
+}
+.military-label b { font-weight: 600; color: #f0c9a0; }
+.military-label span { font-size: 8px; color: #ac8c75; margin-left: 4px; }
+
+/* 军事背景层彩蛋 */
+.crab-card { max-width: 470px; position: relative; overflow: hidden; }
+.crab-close {
+  position: absolute; top: 10px; right: 10px; z-index: 3;
+  background: rgba(6,10,12,.62); backdrop-filter: blur(4px);
+}
+.crab-step { display: flex; flex-direction: column; overflow-y: auto; }
+.crab-step[hidden] { display: none; }
+.crab-star {
+  display: block; width: 128px; height: auto; margin: 30px auto 2px;
+  filter: drop-shadow(0 8px 22px rgba(214,58,42,.38));
+}
+.crab-shot { display: block; width: 100%; height: auto; border-bottom: 1px solid var(--line); }
+.crab-body { padding: 20px 26px 2px; }
+.crab-line {
+  margin: 0; font-family: var(--serif); font-size: 21px; line-height: 1.55;
+  letter-spacing: .02em; color: #ffd9a8;
+}
+.crab-echo { color: #f0b39d; font-style: italic; }
+.crab-sub { margin: 10px 0 0; font-size: 12px; line-height: 1.75; color: var(--dim); }
+.crab-actions { display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; padding: 18px 26px 22px; }
+.crab-actions button {
+  min-height: 34px; padding: 6px 16px; border: 1px solid var(--line-2); background: transparent;
+  color: var(--text); font-family: var(--font); font-size: 13px; line-height: 1.4; cursor: pointer;
+  transition: border-color .15s, color .15s, background .15s;
+}
+.crab-actions button:hover { border-color: rgba(224,160,106,.6); color: #f0c9a0; }
+.crab-actions .crab-primary { border-color: rgba(224,160,106,.55); background: rgba(224,160,106,.1); color: #f3d3ae; }
+.crab-actions .crab-primary:hover { background: rgba(224,160,106,.18); }
 
 .target-marker {
   width: 20px; height: 20px; border-radius: 50%; background: rgba(5,9,11,.86);
